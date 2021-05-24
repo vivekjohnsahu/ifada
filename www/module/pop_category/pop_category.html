@@ -1,0 +1,113 @@
+<div ng-controller="pop_category" ng-init="category_data()">
+<style>
+	.nav > li.cart_icon {
+		align-items: flex-end;
+		justify-content: flex-end;
+	}
+</style>
+
+	<header class="container-fluid nav-down">
+		<div class="row">
+			<nav class="navbar navbar-inverse">
+				<div class="container no-padding">
+					<ul class="nav navbar-nav top_header">
+						<li class="menu_icon "><a href="javacript:void(0)"><img src="assets/img/icon/back.png" id="asdf" ng-click="backtohome()"  alt="menu icon"
+								 style="width: 13px;" /></a></li>
+						<li class="page_name left">
+							<a href="javacript:void(0)" class="text-left ">
+								<p>{{'Popular_Categories' | translate}}</p>
+							</a>
+						</li>
+						<li class="cart_icon">
+                                <a  ng-click="cart()" href="javascript:void(0)"><img width="30"  src="assets/img/google-icon/google-cart.png"
+                                        alt="cart icon" />
+                                        <span class="badge">{{cart_count}}</span>
+                                </a>
+                                
+						</li>
+					</ul>
+					
+				<ul class="nav navbar-nav bottom_header">
+						<li class="menu_search_container"><a href="javacript:void(0)">
+								<!--<img src="assets/img/header/search_icon.png" alt="cart icon" />-->
+								<input type="text" class="menu_search" ng-model="searchProduct" name="searchProduct" placeholder=" {{'Search_Products_Brands_and_More' | translate}}" ng-keyup="$event.keyCode == 13 ? searchproducts() : null" required/>
+							<button class="search_bar_span" ng-click="searchproducts()" ><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+							<span><img width="25" src="assets/img/google-icon/google-search.png"></span>
+						</a></li> 
+					</ul>
+					
+				</div>
+			</nav>
+
+		</div>
+		<!-- MOBILE-MENU-AREA END -->
+	</header>
+	<!-- END HEADER -->
+
+	<!--  All categories content -->
+	<div class="container-fluid mt-85">
+		<div class="row">
+			<div class="container main_calc_length">
+
+				<!-- ** Slides Content ** -->
+				<div class="row calc_length" ng-repeat="x in category_data;" data-aos="fade-up" data-aos-delay="{{$index*50}}" data-aos-once="true">
+					<div class="categpry_main_div_new" style="background-image:url({{x.cat_image}})">
+						<div class="cat_new_head" ng-click="showProducts(x.id,x.url)">
+							<p>{{x.name}} <a><i class="fa fa-angle-right" aria-hidden="true"></i></a></p>
+						</div>
+						<!--<div class="cat_new_items abc{{x.sub.length}}">
+							<div class="cat-item-inner" ng-repeat="y in x.sub" ng-click="showProducts(y.id,y.url)"><a>{{y.name}}</a></div>
+						</div>-->
+					</div>
+				</div>
+				<!-- !. ** Slides Content ** -->
+
+
+
+			</div>
+		</div>
+	</div>
+	
+	<!--End of Pop up-->
+  <!--End of Pop up-->
+   <div>
+	<div class="bottom_navigation"  ng-init="loginlogout()">
+		
+		<div class="bottom_block" ng-init="selecthome()">
+			<a  ng-click="homego();" ng-if="color" style="background:{{background}}">
+			<img src="assets/img/google-icon/google-home.png">
+			<span style="display:block;"> {{'Home' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="category()" style="background: rgba(81, 169, 0, 0.10196078431372549)"><img src="assets/img/google-icon/google-category.png">
+			<span style="display:block;">{{'Category' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="orderList()"><img src="assets/img/google-icon/google-list.png">
+			<span style="display:block;">{{'My_Orders' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="gotoAccount()"><img src="assets/img/google-icon/google-account.png">
+			<span style="display:block;"> {{'Account' | translate}}</span>
+			</a>
+		</div>
+	</div>
+	</div>
+
+<!--End of Pop up-->
+
+<!--End of Pop up-->
+	<!--  !. All categories content -->
+
+
+
+
+
+
+</div>

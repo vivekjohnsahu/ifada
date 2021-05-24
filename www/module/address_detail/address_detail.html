@@ -1,0 +1,90 @@
+<style>
+
+    .addr_edit{
+        padding: 10px 10px;
+		width: 16%;
+		display: table-cell;
+		text-align: right;
+    
+    }
+    .addr_edit > a{
+    background-color: #ffffff;
+    padding: 6px 0px 6px 10px;
+    color: #77af42;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-family: Calibri-Bold;
+    font-size: 14px;
+    }
+    span.name{
+        font-weight: bold;
+        font-size: 15px;
+    }
+	.navbar-nav>li.logo_name > a.back {
+		padding-top: 6px;
+		font-family: Calibri-Light;
+    }
+    .nav > li.cart_icon a{
+        padding-right: 5px !important;
+        display: inline-block;
+        width: 100%;
+        text-align: right;
+    }
+</style>
+<div ng-controller="address_detail" ng-init="all_address()">
+    <header class="container-fluid nav-down">
+        <div class="row">
+            <nav class="navbar navbar-inverse">
+              <div class="container-fluid no-padding">
+                <ul class="nav navbar-nav top_header">
+                  <li class="menu_icon back_icon"><a href="javascript:void(0)"  ><img style="width:13px;" src="assets/img/icon/back.png" id="asdf" alt="menu icon" ng-click="back()"/></a></li>
+                  <li class="logo_name"><a class="text-left back">{{'Delivery_Address' | translate}}</a></li>
+                   <!-- <li class="cart_icon mr-5">                      
+                      <a href="javascript:void(0)"><img src="assets/img/location.png" alt="search icon"/></a>
+                  </li>  -->
+				  <li class="cart_icon">
+                    <a href="javascript:void(0)" style="font-size:14px" ng-click="toAddAddress()">
+						<!--<img src="assets/img/google-icon/edit-address.png" alt="search icon"/>-->
+						{{'ADD_NEW' | translate}}
+					</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+        
+        </div>
+        <!-- MOBILE-MENU-AREA END -->
+    </header>
+    
+    <!-- END HEADER -->    
+         
+        <div class="" ng-if="address">
+            <div class="address mt-50">
+                <h3>{{'Saved_Address' | translate}}</h3>
+            </div>
+        </div>       
+            <div class="saved_address pb-20" ng-repeat="x in address" ng-if = "address">
+                 <div class="address_details pl-10 pr-10">
+                        <h3>
+                            <span class="name">{{fullName}}</span><br>
+                            {{x.landmark + " , " + x.address}}<br />
+                            {{x.CITY_NAME + " , " + " " + x.COUNTRY_NAME}}<br />
+                            {{x.zipcode}}<br />
+                            <span>Mobile : {{x.mobile_number}}</span>
+                        </h3>
+                 </div>
+                 <div class="addr_edit"><a class="edit" ng-click="toEditAddress(x.id)">{{'Edit' | translate }}</a></div>
+                 <div class="checked_add text-center">
+                    <a href="javascript:void(0)"><div class="select_add"  ng-click="paySummary(x.id)"><p>{{'Deliver_Here' | translate}}</p></div></a>
+                 </div>
+            </div>
+            <div   class="no_data_wrapper" ng-if = "!address">
+                <div>
+                    <img src="img/no_data_found.png">
+                    <h3 class="text-center" >{{'No_Address_Found' | translate }} !!!</h3>
+                </div>
+            </div>
+        <!--<div class="chng_add text-center mt-30 mb-30"><a href="javascript:void(0)" ng-click="toAddAddress()">{{'Add_New_Address' | translate}}</a></div>-->
+		
+		
+</div>

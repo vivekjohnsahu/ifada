@@ -1,0 +1,116 @@
+<style>
+.read_noti {
+	   background: #fff !important;
+    }
+	.notification_content {
+	padding: 10px;
+    margin-bottom: 10px;
+	background: #fff;
+}
+.notification_content h4, .notification_content h5{
+	margin-top:0;
+	font-size: 16px;
+    color: #757575;
+}
+.notification_content h4.cancelled{
+	color: #c7a404;
+    font-weight: 400;
+}
+.notification_content h4.failed{
+	color: #c70404;
+    font-weight: 400;
+}
+.notification_content h4.confirmed{
+	color: #51a900;
+    font-weight: 400;
+}
+.noti_content_div{
+	margin-bottom:56px;
+}
+</style>
+
+<div ng-controller="notification" ng-init="notify()" >
+<header class="container-fluid nav-down">
+    <div class="row">
+      <nav class="navbar navbar-inverse">
+        <div class="container no-padding">
+          <ul class="nav navbar-nav top_header text-center">
+			<li class="menu_icon "><a href="javacript:void(0)"><img src="assets/img/icon/back.png" id="asdf" ng-click="backtohome()"  alt="menu icon" style="width: 13px;" /></a>
+			</li>
+            <li class="page_name">
+              <a href="javascript:void(0)" class="text-left text-center">
+                <p>{{'Notification'| translate}}</p>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+      </nav>
+
+    </div>
+    <!-- MOBILE-MENU-AREA END -->
+  </header>
+
+<!-- END HEADER -->    
+     
+	
+	
+		<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mt-45 no-padding noti_content_div">
+			<div  class="notification_content" ng-if="notificationdata.length != 0" ng-repeat="x in notificationdata"  ng-click="more_notification(x.id)" ng-class="x.is_view_on_user =='0' ? 'read_noti' : ''">
+			      <h5>{{'Order_ID' | translate}} -{{x.id}}</h5>
+			      <h4   class="confirmed"> <span><i class="fa fa-check" aria-hidden="true"></i></span> {{'Your_Order_has_been_placed' | translate}}</h4>
+		          <!--<h4  ng-if="x.payment_status == '3'" class="cancelled"><span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span> Your Order has been Cancelled </h4>
+				  <h4  ng-if="x.payment_status == '2'" class="failed"><span><i class="fa fa-times" aria-hidden="true"></i></span> Your Payment has been Failed </h4>-->
+			 	  <div class="notify_date text-right">{{x.created_date}}</div>
+			 </div>
+			<center>
+			<div ng-if="!notificationdata || notificationdata.length == 0" class="no_data_found">
+				<div class="no_data_main" style="margin-top: 24px;">
+					<!--<img src="img/no_data_found.png">-->
+				  <!--  <p>SORRY</p>-->
+					<p>{{'No_Record_founds' | translate}}</p>
+				</div>
+
+			</div>
+			</center>
+			
+		</div>
+		
+		<div>
+	<div class="bottom_navigation"  ng-init="loginlogout()">
+		
+		<div class="bottom_block" ng-init="selecthome()">
+			<a  ng-click="homego();" ng-if="color" style="background:{{background}}">
+			<img src="assets/img/google-icon/google-home.png">
+			<span style="display:block;"> {{'Home' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="category()"><img src="assets/img/google-icon/google-category.png">
+			<span style="display:block;">{{'Category' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="notification()"><img src="assets/img/google-icon/google-list.png">
+			<span style="display:block;">{{'My_Orders' | translate}}</span>
+			</a>
+		</div>
+		
+			<div class="bottom_block">
+			<a ng-click="gotoAccount()"><img src="assets/img/google-icon/google-account.png">
+			<span style="display:block;"> {{'Account' | translate}}</span>
+			</a>
+		</div>
+	</div>
+	</div>
+    </div>
+	
+	
+
+    
+	
+	   
+	

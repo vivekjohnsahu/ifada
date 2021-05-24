@@ -1,0 +1,133 @@
+<style>
+.terms input {
+    position: absolute;
+    left: 16px;
+    width: 1.5em;
+    height: 1.5em;
+}
+.pretty input {
+    z-index: 0;
+}
+.nav > li.page_name{
+	position: absolute;
+	height: 100%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	left: 0;
+	top: 3px;
+	padding-bottom: 10px;
+}
+.form_container {
+    padding: 0px 0;
+}
+.exist-account {
+    clear: both;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    background: #f9f9f9;
+    padding: 15px;
+}
+.nav > li.menu_icon {
+    width: 50px;
+    z-index: 999;
+}
+</style>
+<div ng-controller="user_register">
+<div ng-init="countryInit();">
+  <header class="container-fluid nav-down">
+    <div class="row">
+      <nav class="navbar navbar-inverse">
+        <div class="container no-padding">
+          <ul class="nav navbar-nav top_header text-center">
+			<li class="menu_icon "><a href="javacript:void(0)"><img src="assets/img/icon/back.png" id="asdf" ng-click="backwithremove()"  alt="menu icon" style="width: 13px;" /></a>
+			</li>
+            <li class="page_name">
+              <a href="javascript:void(0)" class="text-left text-center">
+                <p>{{'Registration'| translate}}</p>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+      </nav>
+
+    </div>
+    <!-- MOBILE-MENU-AREA END -->
+  </header>
+  <!-- END HEADER -->
+
+
+  <div class="container">
+    <div class="login_form">
+      <div class="form_container">
+        <form method="post" name="loginform" novalidate>
+          <div class="mui-textfield  col-sm-6 col-xs-6">
+            <input type="text" id="first" name="fname" ng-model="fname" placeholder="{{'First_Name' | translate}}" required>
+            <label for="first">{{'First_Name' | translate}}</label>
+          </div>
+          <div class="mui-textfield col-sm-6 col-xs-6">
+            <input type="text" id="last" ng-model="lname" name="lname" placeholder="{{'Last_Name' | translate}}" required>
+            <label for="last">{{'Last_Name' | translate}}</label>
+          </div>
+                  
+          <div class="mui-textfield col-sm-6 col-xs-12">
+		   <select style="width: 100px;    width: 100px;    height: auto;    display: inline-block;    vertical-align: middle;    padding: 10px 10px 7px 10px;border: none;border-bottom: 2px solid #75b078;margin-right: 10px;    outline: none;" name="country_code" id="country_code">
+			   <option value="{{x.country_code}}" ng-repeat="x in countrycode_list">{{x.country_code}}</option>
+           </select>
+            <input style="width: calc(100% - 120px);display: inline-block;vertical-align: middle;" type="tel" id="mbl_num" name="mob_number" ng-model="mob_number" placeholder="{{'Mobile_Number' | translate}}" required>
+            <label for="mbl_num">{{'Mobile_Number' | translate}}</label>
+          </div>
+          <div class="mui-textfield col-sm-6 col-xs-12">
+            <input type="email" id="email" name="email" ng-model="email" placeholder="{{'Email' | translate}}" required>
+            <label for="email">{{'Email' | translate}}</label>
+          </div>
+          <div class="mui-textfield col-sm-6 col-xs-12">
+            <input type="password" id="pass" ng-model="password" name="password" placeholder="{{'Password' | translate}}" required>
+            <label for="pass">{{'Password' | translate}}</label>
+          </div>
+          <div class="mui-textfield col-sm-6 col-xs-12 mb-30">
+            <input type="text" id="cnf_pass" ng-model="referal_code" name="referal_code" placeholder="{{'Referral_Code' | translate}}">
+            <label for="cnf_pass">{{'Referral_Code' | translate}}</label>
+          </div>
+          <div class="terms">
+              <div class="pretty p-icon p-curve p-pulse">
+                <input type="checkbox" id="retailer" name="retailer" ng-model="retailer" >
+                <div class="state p-info-o">
+                    <i class="icon  fa fa-check"></i>
+                    <label>{{'I_am_Retailer' | translate }}</label> 
+                </div>
+              </div>
+          </div>
+          
+          <div class="terms">
+              <div class="pretty p-icon p-curve p-pulse">
+                <input type="checkbox" ng-model="conditions" name="terms" required>
+                <div class="state p-info-o">
+                    <i class="icon  fa fa-check"></i>
+                    <label>{{'I_Accept' | translate }} <span ng-click="terms()"> {{'Terms_n_Conditions' | translate }}</span></label> 
+                </div>
+              </div>
+          </div> 
+          <div class="submit-btn col-sm-6 col-xs-12 text-center" ng-click="user_registers('loginform')">
+            <a href="javascript:void(0)" ng-keyup="$event.keyCode == 13 ? loginuser('loginform') : null">{{'Sign_Up' | translate}}</a>
+          </div>
+	    </form>
+      </div>
+    </div>
+  </div>
+  
+    <div class="exist-account" ng-click="login()">
+		<p class="">{{'Already_a_User' | translate}}? <a href="javascript:void(0)" class="sign-in-link"> {{'Sign_In' | translate}} </a></p>
+    </div>
+  </div>
+
+<!--End of Pop up-->
+  <!--  END Banner SLIDER -->
+
+</div>

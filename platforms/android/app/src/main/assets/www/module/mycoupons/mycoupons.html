@@ -1,0 +1,246 @@
+<style type="text/css">
+    .products_wrapper.ticket_wrapper {
+        display: block;
+        padding: 15px;
+    }
+    .ordrlist_head img {
+    margin-right: 10px;
+    vertical-align: bottom;
+    width: 49px;
+}
+.offer-coupon{
+    width:20%;
+    display:inline-block;
+	vertical-align: top;
+}
+.offer-coupon img{
+    width:100%;
+}
+.about-my-coupon{
+    width: 78%;
+    display: inline-block;
+    padding-left: 10px;
+	vertical-align: top;
+}
+.about-my-coupon > h4{
+    margin-top: 0;
+    margin-bottom: 0;
+	    color: #757575;
+}
+.coupon_div{
+    padding: 10px;
+    min-height: 40px;
+    position: relative;
+	overflow: hidden;
+}
+.coupon_div > .one{
+	position: absolute;
+    top: 0;
+    width: 100%;
+    color: #fff;
+    left: 0;
+    height: 100%;
+    display: flex;
+    background: #77af42;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 3px;
+}
+.coupon_div > .two{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    color:#006d07;
+    left: 0;
+    height: 100%;
+    display: flex;
+    background: #fff;
+    align-items: center;
+	overflow: hidden;
+}
+.coupon_div > .one > a{
+    color: #fff;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+.coupon_div .two > a {
+    color: #006d07;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+}
+.btn-coupon:hover,.btn-coupon:focus {
+  background: none;
+  color: #2ECC71;
+}
+.coupon-code-new{
+    margin-top: 10px;
+}
+.coupon-manufacturer h3{
+    font-size: 16px;
+	margin: 10px 0;
+	    color: #757575;
+}
+.coupon-date p{
+    font-size: 14px;
+    color: #757575;
+    font-weight: 600;
+}
+.padding_ticket {
+    padding: 0 15px;
+}
+.prodcut_main_container {
+    padding: 10px;
+}
+</style>
+
+<div ng-controller="mycoupons" ng-init="ordersInit()">
+
+    <header class="container-fluid nav-down">
+        <div class="row">
+            <nav class="navbar navbar-inverse">
+                <div class="container no-padding" >
+                    <ul class="nav navbar-nav top_header">
+                        <li class="menu_icon "><a href="javascript:void(0)"><img ng-click="backtohome()" src="assets/img/icon/back.png" alt="menu icon" style="width: 13px;" /></a></li>
+                        <li class="page_name left">
+                            <a href="javascript:void(0)" class="text-left ">
+                                <p>{{'My_Coupons' | translate }}</p>
+                            </a>
+                        </li>
+                        <li class="cart_icon">
+                           <!--  <a href="javascript:void(0)"><img src="assets/img/icon/cart_icon.png" alt="cart icon" />
+                                <span class="badge">14</span>
+                            </a> -->
+                           <!--  <a href="javascript:void(0)"><img src="assets/img/icon/search_icon.png" alt="search icon" /></a> -->
+                        </li>
+                    </ul>
+                    <!-- <ul class="nav navbar-nav bottom_header">
+                        <li class="menu_search_container"><a href="javascript:void(0)">
+                                
+                                <input type="text" class="menu_search" placeholder="Search products brands and more" />
+                            </a></li>
+                    </ul> -->
+                </div>
+                
+            </nav>
+
+        </div>
+        <!-- MOBILE-MENU-AREA END -->
+    </header>
+    <!-- END HEADER -->
+
+    <!--  [PULSES] Sub categories content -->
+    <div class="container-fluid mt-55">
+        <div class="row">
+            <div class="">
+
+
+                <!-- ** My Order List  ** -->
+
+                <div class="no-padding item_lists_main" style="width:100%" ng-if="order_list != ''"  ng-repeat="x in order_list">
+                  
+                        <div class="prodcut_main_container">
+                            <div class="products_wrapper ticket_wrapper">
+
+                                <div class="row padding_ticket">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                        <div class="offer-coupon">
+                                            <img class="myorderlist_img" height="73" width="73" ng-if="x.image != ''" src="{{x.coupon_image}}">
+                                            <img class="myorderlist_img" height="73" width="73" ng-if="x.image == ''" src="assets/img/my_order_list.png">
+                                        </div>
+                                        <div class="about-my-coupon">
+                                                <h4> {{x.coupon_name}}</h4>
+                                                <p>{{x.coupon_description}}</p>
+                                        </div>
+                                        <div class="coupon-manufacturer">
+                                            <h3>{{'Manufacture_Name' | translate}}: {{x.first_name}} {{x.last_name}}</h3>
+                                        </div>    
+                                        <div class="coupon_div">
+                                            <div class="one"><a>{{'Click_To_See_The_Code' | translate}}</a></div>
+                                            <div class="two hide"><a>{{x.coupon_code}}</a></div>
+                                        </div>   
+                                       <!--  <h5 class="ordrlist_head">
+                                            {{'Coupon_Code' | translate}} {{x.coupon_code}}</h5> -->
+                                        <div class="coupon-date">
+                                            <p style="color:red" ng-if="x.coupon_status == 'Expired'">{{'Expired' | translate}}</p>
+                                            <p style="color:green " ng-if="x.coupon_status == 'Active'">{{'Active' | translate}}</p>
+                                            <p>{{'Start_Date' | translate}}:-{{x.start_date}}</p>
+                                            <p>{{'End_Date' | translate}}:-{{x.end_date}}</p>
+                                        </div> 
+                                    </div>
+
+                                    
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                   
+                </div>
+                <div  class="no_data_wrapper" ng-if="order_list == ''">
+                    <div class="">
+                        <img src="img/no_data_found.png">
+                        <h3 class="text-center">{{'No_Coupon_Found' | translate}}</h3>
+                    </div>
+                <!-- ** !. My Order List ** -->
+            </div>
+        </div>
+    </div>
+    <!--  !. [PULSES] Sub categories content -->
+
+  
+    <script>
+
+
+        $(document).ready(function () {
+            $(".cart_icon a:last-child").click(function () {
+                //alert();
+                $(".bottom_header").slideToggle();
+                //$("#banner_slider").toggleClass("search-container")
+            });
+
+        
+           $(document).on("click", ".coupon_div > .one", function(){
+             $(this).addClass("hide");
+             $(this).next().removeClass("hide");
+           })
+        
+        });
+    </script>
+</div>
+  <!--End of Pop up-->
+    <div>
+	<div class="bottom_navigation"  ng-init="loginlogout()">
+		
+		<div class="bottom_block" ng-init="selecthome()">
+			<a  ng-click="homego();" ng-if="color" style="background:{{background}}">
+			<img src="assets/img/google-icon/google-home.png">
+			<span style="display:block;"> {{'Home' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="category()"><img src="assets/img/google-icon/google-category.png">
+			<span style="display:block;">{{'Category' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="orderList()"><img src="assets/img/google-icon/google-list.png">
+			<span style="display:block;">{{'My_Orders' | translate}}</span>
+			</a>
+		</div>
+		
+			<div class="bottom_block">
+			<a ng-click="gotoAccount()"><img src="assets/img/google-icon/google-account.png">
+			<span style="display:block;"> {{'Account' | translate}}</span>
+			</a>
+		</div>
+	</div>
+	</div>
+
+	<!--End of Pop up-->
+</div>

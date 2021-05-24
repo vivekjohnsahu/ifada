@@ -1,0 +1,583 @@
+<div ng-controller="myorder_assign_detail" ng-init="ordersDetalisInit()">
+    <style>
+        .modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.rating {
+    color: #a9a9a9;
+    margin: 0;
+    padding: 0;
+}
+ul.rating {
+    display: inline-block;
+}
+.rating li {
+    list-style-type: none;
+    display: inline-block;
+    padding: 1px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+.rating .filled {
+    color: red;
+}
+.order_subcontainer_heading a.invoice {
+    display: inline-block;
+    background: #ff8404;
+    color: #fff;
+    border-radius: 4px;
+    padding: 0 8px;
+    font-size: 12px;
+    min-width: 65px;
+    /* float: unset; */
+    margin-top: 8px;
+	float: right;
+	}
+.modal-footer button.submit{
+    color: #FFFFFF;
+    background-color: #39a91c;
+}
+.modal-footer button.btn-default{
+    padding: 8px 20px;
+    border-radius: 0;
+}
+#myModal_4 .modal-dialog{
+width:99%;
+}
+ #myModal_3	.modal-footer{
+		text-align:center !important;
+ }
+ #myModal_6	.modal-footer{
+		text-align:center !important;
+ }
+ #myModal_8	.modal-footer{
+		text-align:center !important;
+ }
+ #myModal_9	.modal-footer{
+		text-align:center !important;
+ }
+</style>
+
+    <header class="container-fluid nav-down">
+        <div class="row">
+            <nav class="navbar navbar-inverse">
+                <div class="container no-padding">
+                    <ul class="nav navbar-nav top_header text-center">
+                        <li class="menu_icon "><a href="javascript:void(0)"><img src="assets/img/icon/back.png"
+                                    ng-click="backtoorder()" alt="menu icon" style="width: 13px;" /></a></li>
+                        <li class="page_name left">
+                            <a href="javascript:void(0)" class="text-left ">
+                                <p>{{'Assign_Order_Detail' | translate}}</p>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </nav>
+
+        </div>
+        <!-- MOBILE-MENU-AREA END -->
+    </header>
+    <!-- END HEADER -->
+
+    <!--  START Banner SLIDER -->
+    <div class="container-fluid mt-55">
+        <div class="row">
+            <div class="order_container">
+                <div class="dlvry_container no-padding">
+                    <div class="order_heading col-xs-12">
+                        <p style="width:100%;">{{'Order_ID' | translate}} <span>{{detail.order_id}}</span><span style="margin-left: 144px;"></p>
+						
+                    </div>
+                    <div class="order_subcontainer" ng-repeat="y in detail_distribution">
+                        <div class="order_subcontainer_heading col-xs-12 pb-5">
+                            <p style="width:100%;">{{'Order_ID' | translate}} &nbsp;<span>{{detail.order_id}}-{{y.id}} </span><!--<a class="invoice" ng-if="y.status == '5'" ng-click="invoice(detail.manufacturer_id,detail.order_id)"><i class="fa fa-download" aria-hidden="true"></i> {{'Invoice' | translate}}</a>--></p>
+                            <p class="status_btn" ng-if="y.status == '1'">{{'Pending' | translate}}</p>
+                            <p class="status_btn" style="background: #ff7f8d!important;" ng-if="y.status == '2'">{{'InProcess' | translate }}</p>
+                            <p class="status_btn" style="background: #4a0d4a!important" ng-if="y.status == '3'" data-toggle="modal" data-target="#myModal_5">{{'Delivery_Person_Assigned' | translate}}</p>
+                            <p class="status_btn" style="background: #66af52!important;" ng-if="y.status == '4'" data-toggle="modal" data-target="#myModal_6">{{'Out_for_delivery' | translate}}</p>
+                            <p class="status_btn" style="background: #39a91c!important;" ng-if="y.status == '5'" data-toggle="modal" data-target="#myModal_7">{{'Delivered' | translate}}</p>
+                            <p class="status_btn" style="background: #eda1a8;" ng-if="y.status == '6'">{{'Cancelled' | translate}}</p>
+                            <p class="status_btn" style="background: #dc081f!important;" ng-if="y.status == '7'">{{'Rejected' | translate}}</p>
+                            <p class="status_btn" style="background: #f5ae48!important;" ng-if="y.status == '8'" data-toggle= "modal" data-target="#myModal_8">{{'Rescheduled' | translate}}</p>
+                            <p class="status_btn" style="background: #df5739!important;" ng-if="y.status == '9'" data-toggle= "modal" data-target="#myModal_9">{{'No_contacted' | translate}}</p>
+                            <!--<a href="" class="track_btn" ng-click="trackOrder(y.id,detail.id)">{{'Track_Order' |
+                                translate}}</a>-->
+								
+							<a  ng-if="y.status == '2'" class="track_btn" data-toggle="modal" data-target="#myModal_3">{{'Assign Delivery Person' | translate}}</a>
+						
+				<a ng-if="y.status != '1' &&  y.status != '2'" class="track_btn" data-toggle="modal" data-target="#myModal_4">{{'Delivery_Person_Status' | translate}}</a>
+			<div class="dp text-right" ng-if="y.delivery_boy_id != '0' &&  y.delivery_boy_id != ''">{{'Delivery_Person' | translate}}:{{y.delivery_boy_name}} </div>
+                        </div>
+                        <div class="order_subcontainer_detail col-xs-12">
+                            <p><span>{{'Order_on' | translate}}: {{y.updated_date.split(' ')[0] | date : 'dd-MM-yyyy'}}</span><span>{{'Order_Amt'
+                                    | translate}}: {{currency}} {{y.final_amount}}</span></p>
+                        </div>
+                        <div class="order_subcontainer__content col-xs-12" ng-repeat="z in y.product_data">
+                            <div class="prod_row_wrapper">
+                                <div class="prod_img_wrapper">
+                                    <img src="{{z.IMAGE_NAME}}" class="img-responsive" />
+                                </div>
+                                <div class="prod_content_wrapper">
+                                    <p class="order_sub_name">{{z.NAME}}</p>
+                                    <p><span>{{'Units' | translate}} </span>{{z.unit_value}}{{z.UNIT}}</p>
+                                    <p><span>{{'Price' | translate}} </span>{{currency}} {{z.unit_price}}</p>
+                                    <p><span>{{'VAT' | translate}} </span>{{currency}} {{z.tax_amount}}</p>
+                                    <p><span>{{'Qty' | translate}} </span>{{z.quantity}}</p>
+                                </div>
+							
+                               <!-- <div class="prod_img_wrapper review_icon" ng-if="y.status == '5'" ng-click = "values(z.MENU_ID,z.menu_varient_id,detail.id,z.manufacturer_distribution_id)">
+                                    <img src="assets/img/review_icon.png" class="img-responsive" data-toggle="modal"
+                                        data-target="#item_review" />
+                                </div>-->
+                            </div>
+								 <div ng-if="y.cancel_reason!=''" class="col-sm-12 col-xs-12">
+						<p  style="padding: 5px 0px;">{{'Cancel_Reason' | translate }} :{{y.cancel_reason}}</p>
+				       </div>
+                            <!-- <div class="prod_row_wrapper">
+                                    <div class="prod_img_wrapper">
+                                        <img src="assets/img/product/order_img1.png" class="img-responsive" />						
+                                    </div>
+                                    <div class="prod_content_wrapper">
+                                        <p class="order_sub_name">Dry Fruits</p>
+                                        <p><span>Unit </span>500g</p>
+                                        <p><span>Price </span>AED 140</p>
+                                    </div>
+                                </div> -->
+
+<!-- pop up for review -->
+
+
+                                <div class="modal fade" id="item_review" role="dialog">
+                                        <div class="modal-dialog">
+                                
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <div class="customer-image" ng-if="profile_image_found != ''">
+                                                        <img src="{{profile_image}}">
+                                                    </div>
+                                                    <div class="customer-image" ng-if="profile_image_found == ''">
+                                                            <img src="assets\img\icon\user_icon.png">
+                                                        </div>
+                                                    <h4 class="modal-title">{{'Review_by' | translate }} {{fullName}}</h4>
+                                                </div>
+                                                <form name="review" nonvalidate>
+                                                <div class="customer-rating-star">
+                                                    <!-- <span class="spr-starratings spr-review-header-starratings">
+                                                <i class="fa fa-star fa-fw"></i>
+                                                <i class="fa fa-star fa-fw"></i>
+                                                <i class="fa fa-star fa-fw"></i>
+                                                <i class="fa fa-star-o fa-fw"></i>
+                                                <i class="fa fa-star-o fa-fw"></i>                              
+                                            </span> -->
+                                                    <span ng-repeat="rating in ratings">
+                                                        <!-- {{rating.max}} -->
+                                                        <div class="review_main_div" star-rating rating-value="rating.current" max="rating.max" on-rating-selected="getSelectedRating(rating)"></div>
+                                                    </span>
+                                                    <span class="spr-starratings spr-review-header-starratings">
+                                                        {{currentfeedback}}
+                                                    </span>
+                                                </div>
+                                
+                                                <div class="comment_box_review">
+                                                    <!-- <textarea rows="4" name="comments" placeholder="Give your valuable comment..."></textarea> -->
+                                
+                                                    <div class="form_container">
+                                                        <form class="mui-form">
+                                                            <div class="mui-textfield contactmessage col-xs-12">
+                                                                <textarea rows="2" placeholder="" ng-model="form.comment" name="comment"></textarea>
+                                                                <label>{{'Comments' | translate}}</label>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                
+                                               <!-- <div class="review-subbmit-bttn">
+                                                        <button type="button" value="submit" class="review-cancel-button" data-dismiss="modal" >{{'Cancel' | translate }}</button>
+                                                    <button type="button" value="submit" class="review-subbmit-button" data-dismiss="modal" ng-click="revieworder('review')">{{'Submit' | translate }}</button>
+                                                </div>-->
+                                            </form>
+                                            </div>
+                                
+                                        </div>
+                                    </div>
+
+<!-- end of popup for review -->
+
+
+                        </div>
+                       <!-- <div ng-if="y.status != '6' && y.status != '5' && y.status != '7'" class="submit-btn col-sm-6 col-xs-12 text-center">
+                            <a class="cancel_order" href="javascript:void(0)" ng-click="deleteOrder(y.id,detail.id)">{{'Cancel'
+                                | translate}}</a>
+                        </div>-->
+                        <!-- <div ng-if="y.status == '6'" class="submit-btn col-sm-6 col-xs-12 text-center">
+                            <a href="javascript:void(0)" style="background-color: #eda1a8">{{'Order_Cancelled' |
+                                translate}} </a>
+                        </div> -->
+                    </div>
+                     
+                </div>
+                <div class="dlvry_time_container mt-15">
+                    <div class="dlvry_address col-xs-12">
+                        <div class="dlvry_address_heading">
+
+
+                            <table class="mui-table">
+                                <tbody>
+                                    <tr>
+                                        <td width="100px;">{{'Payment' | translate}}</td>
+                                        <td width="20px;">:</td>
+                                        <td ng-if="alldetail.payment_type == '1'">{{'COD' | translate}}<span>
+                                                ({{currency}}-{{codamount | number : 2}})</span></td>
+                                        <td ng-if="alldetail.payment_type == '2'">{{'Online' | translate}}<span>
+                                                ({{currency}}-{{codamount | number : 2}})</span></td>
+                                        <td ng-if="alldetail.payment_type == ''">{{'Wallet' | translate}}</td>
+                                    </tr>
+                                    <tr ng-if="alldetail.wallet_used_amount !='0.00'">
+                                        <td>{{'Wallet_used_amount' | translate}}</td>
+                                        <td width="20px;">:</td>
+                                        <td>{{currency}}-{{alldetail.wallet_used_amount | number : 2}}</td>
+                                    </tr>
+                                    <tr ng-if="alldetail.coupon_code_amount != '0.00'">
+                                        <td>{{'Coupon_Discount' | translate}}</td>
+                                        <td width="20px;">:</td>
+                                        <td>{{currency}}-{{alldetail.coupon_code_amount}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'VAT' | translate}}</td>
+                                        <td width="20px;">:</td>
+                                        <td>{{currency}}-{{alldetail.tax_amount}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'Ordered_On' | translate}}</td>
+                                        <td width="20px;">:</td>
+                                        <td>{{detail_date.split(' ')[0] | date : 'dd-MM-yyyy'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'Deliver_To' | translate}}</td>
+                                        <td width="20px;">:</td>
+                                        <td>{{delivery_address.address}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'Mobile_Number' | translate}}</td>
+                                        <td width="20px;">:</td>
+                                        <td>{{delivery_address.mobile_number}}</td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="view_prod">
+                    <p class="col-xs-6"><a href="javascript:void(0)">{{'Total_Amount' | translate}}</a></p>
+                    <p class="col-xs-6 text-right">{{currency}} {{detail.final_amount | number : 2}}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--  END Banner SLIDER -->
+
+
+
+
+  <!--assigned delivery person Modal -->
+<div id="myModal_3" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" id="btn_type" class="close" data-dismiss="modal">&times;</button>
+        <!--<h4 class="modal-title">Assign Delivery Person</h4>-->
+      </div>
+      <div class="modal-body">
+         <div class="form-group col-md-6">
+				<label>{{'Assign_Delivery_Person' | translate}} <!--<span class="required" aria-required="true">* </span>--></label>
+					<div class="select-style">
+					<select name="delivery_boy" id="delivery_boy_id"  class=" form-control">
+					<option value="{{x.id}}" ng-repeat="x in deliveryboy">{{x.deliveryboy}}</option>
+					</select>
+				</div>	
+          </div>
+      <div class="modal-footer">
+	    <button id="btn_closed" ng-click="deliver_person(detail.id,detail.order_id)"  class="submit btn btn-default" >{{'Submit' | translate}}</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+      </div>
+    </div>
+
+  </div>
+</div>  
+</div>
+
+
+
+   <!--assigned delivery person Modal -->
+<div id="myModal_4" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">{{'Status' | translate}}</h4>
+      </div>
+      <div   class="modal-body">
+         <table id="account_program_listing" class="table ">
+		 <tbody>
+		    <tr>
+		        <th>{{'Sr_No'| translate}}</th>
+		        <th>{{'Status' | translate}}</th>
+				<th> {{'Message' | translate}}</th>
+				<th> {{'Date' | translate}}</th>
+		
+			</tr>
+			
+			  <tr ng-if="order_list != ''"  ng-repeat="delivery in order_list" >
+			  <td>{{$index+1}}</td>
+			  <td ng-if="delivery.order_status == '1'">{{'Pending' | translate}}<</td>
+              <td ng-if="delivery.order_status == '2'">{{'InProcess' | translate }}</td>
+               <td ng-if="delivery.order_status == '3'">{{'Delivery_Person_Assigned' | translate}}</td>
+               <td ng-if="delivery.order_status == '4'">{{'Out_for_delivery' | translate}}</td>
+               <td ng-if="delivery.order_status == '5'">{{'Delivered' | translate}}</td>
+                <td ng-if="delivery.order_status == '6'">{{'Cancelled' | translate}}</td>
+               <td ng-if="delivery.order_status == '7'">{{'Rejected' | translate}}</td>
+                  <td ng-if="delivery.order_status == '8'">{{'Rescheduled' | translate}}</td>
+                  <td ng-if="delivery.order_status == '9'">{{'No_contacted' | translate}}</td>
+			 
+			   <td>{{comments}}</td>
+			   <td> {{delivery.created_date | date : 'dd-MM-yyyy '}}</td>
+			</tr>
+		
+			  <tr ng-if="order_list == ''"  >
+			   <td colspan="4" class="text-center" >{{'No_Record_founds' | translate}}</td>
+			 </tr>
+		</tbody>
+		</table>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+<!--------delivery Person Assign status Modal----------------------->
+<div id="myModal_5" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" id="btn_type2" class="close" data-dismiss="modal">&times;</button>
+        <!--<h4 class="modal-title">Order Status</h4>-->
+      </div>
+      <div class="modal-body">
+         <div class="form-group col-md-6">
+				<label> {{'Order_Status' | translate}}</label>
+					<div class="select-style">
+					<select name="delivery_status" id="delivery_status"  class=" form-control">
+					<option value="{{xy.id}}" ng-repeat="xy in delivery_status">{{xy.status}}</option>
+					</select>
+				</div>	
+      </div>
+      <div class="modal-footer">
+	    <button id="btn_closed2"   ng-click="order_status_updated(detail.id,detail.order_id,detail.manufacturer_id)" class="submit btn btn-default" >{{'Submit' | translate}}</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+      </div>
+    </div>
+
+  </div>
+</div> 
+</div>
+<!------------------------changed order status---------------------------->
+<div id="myModal_6" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" id="btn_type3" class="close" data-dismiss="modal">&times;</button>
+       <!-- <h4 class="modal-title">Order Status</h4>-->
+      </div>
+      <div class="modal-body">
+         <div class="form-group col-md-6">
+				<label>{{'Order_Status' | translate}}</label>
+					<div class="select-style">
+					<select name="delivery_status_out" id="delivery_status_out"  class=" form-control">
+				
+					<option value="{{xy.id}}" ng-repeat="xy in delivery_status">{{xy.status}}</option>
+					</select>
+				</div>	
+      </div>
+      <div class="modal-footer">
+	    <button  id="btn_closed3" ng-click="change_order_status(detail.id,detail.order_id,detail.manufacturer_id)"  class="submit btn btn-default" >{{'Submit' | translate}}</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+      </div>
+    </div>
+
+  </div>
+</div>  
+</div>
+<!------------------------------------------------------------------------>
+<!---------------------out of delivery------------------------------------------------>
+<div id="myModal_7" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+   <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" id="btn_type" class="close" data-dismiss="modal">&times;</button>
+       <!-- <h4 class="modal-title">Order Status</h4>-->
+      </div>
+      <div class="modal-body">
+         <div class="form-group col-md-6">
+				
+					<center><div class="select-style">
+				      {{'Order_Delivered' | translate}}
+				   </div></center>	
+      </div>
+     <div class="modal-footer">
+         <center><button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button> </center>
+      </div>
+	 
+    </div>
+
+  </div>
+
+  </div>
+</div>
+
+<!---------------------------------------------------------------------------------------->
+
+<!-----------------Re-scheduled order--------------------------------------------------------->
+<div id="myModal_8" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" id="btn_type4" class="close" data-dismiss="modal">&times;</button>
+        <!--<h4 class="modal-title">Order Status</h4>-->
+      </div>
+      <div class="modal-body">
+         <div class="form-group col-md-6">
+				<label>{{'Order_Status' | translate}}<</label>
+					<div class="select-style">
+					<select name="delivery_status_re" id="delivery_status_re"  class=" form-control">
+					<option value="{{xyz.id}}" ng-repeat="xyz in delivery_status">{{xyz.status}}</option>
+					</select>
+				</div>	
+      </div>
+      <div class="modal-footer">
+	    <button id="btn_closed4" ng-click="change_order_status_re(detail.id,detail.order_id,detail.manufacturer_id)"  class="submit btn btn-default" >{{'Submit' | translate}}</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+    
+</div>
+<!-----------------Re-scheduled order--------------------------------------------------------->
+<!----------------No connected order--------------------------------------------------------->
+<div id="myModal_9" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" id="btn_type5" class="close" data-dismiss="modal">&times;</button>
+       <!-- <h4 class="modal-title">Order Status</h4>-->
+      </div>
+      <div class="modal-body">
+         <div class="form-group col-md-6">
+				<label>{{'Order_Status' | translate}}<</label>
+					<div class="select-style">
+					<select name="delivery_status_no" id="delivery_status_no"  class=" form-control">
+					<option value="{{xyz.id}}" ng-repeat="xy in delivery_status">{{xyz.status}}</option>
+					</select>
+				</div>	
+        </div>
+      <div class="modal-footer">
+	    <button id="btn_closed5" ng-click="change_order_status_no(detail.id,detail.order_id,detail.manufacturer_id)"  class="submit btn btn-default" >{{'Submit' | translate}}</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+    
+</div>
+<!-----------------No connected order--------------------------------------------------------->
+ <!--End of Pop up-->
+   <div>
+	<div class="bottom_navigation"  ng-init="loginlogout()">
+		
+		<div class="bottom_block" ng-init="selecthome()">
+			<a  ng-click="homego();" ng-if="color" style="background:{{background}}">
+			<img src="assets/img/google-icon/google-home.png">
+			<span style="display:block;"> {{'Home' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="category()"><img src="assets/img/google-icon/google-category.png">
+			<span style="display:block;">{{'Category' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="orderList()"><img src="assets/img/google-icon/google-list.png">
+			<span style="display:block;">{{'My_Orders' | translate}}</span>
+			</a>
+		</div>
+		
+			<div class="bottom_block">
+			<a ng-click="gotoAccount()"><img src="assets/img/google-icon/google-account.png">
+			<span style="display:block;"> {{'Account' | translate}}</span>
+			</a>
+		</div>
+	</div>
+	</div>
+
+<!--End of Pop up-->   
+</div>
+<script>
+$("#btn_closed").click(function(){
+$( "#btn_type" ).trigger( "click" );
+});
+$("#btn_closed1").click(function(){
+$( "#btn_type1" ).trigger( "click" );
+});
+$("#btn_closed2").click(function(){
+$( "#btn_type2" ).trigger( "click" );
+});
+$("#btn_closed3").click(function(){
+$( "#btn_type3" ).trigger( "click" );
+});
+$("#btn_closed4").click(function(){
+$( "#btn_type4" ).trigger( "click" );
+});
+$("#btn_closed5").click(function(){
+$( "#btn_type5" ).trigger( "click" );
+});
+</script>
+

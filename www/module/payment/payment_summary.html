@@ -1,0 +1,130 @@
+<style>
+	.nav > li.page_name.left{
+		width: calc(100% - 50px);
+	}
+</style>
+<div class="bg" ng-controller="payment_summary" ng-init="address_get()">
+        <header class="container-fluid nav-down">
+                <div class="row">
+                    <nav class="navbar navbar-inverse">
+                      <div class="container no-padding">
+                        <ul class="nav navbar-nav top_header text-center">
+                          <li class="menu_icon "><a href="javascript:void(0)"  ><img src="assets/img/icon/back.png" id="asdf" alt="menu icon"style="width: 13px;" ng-click="back()"/></a></li>
+                            <li class="page_name left">
+                                <a href="javascript:void(0)" class="text-left ">
+                                    <p>{{'Payment_Summary' | translate}}</p>
+                                </a>
+                            </li>
+                          
+                        </ul>
+                        
+                      </div>
+                    </nav>
+                
+                </div>
+                <!-- MOBILE-MENU-AREA END -->
+            </header>
+            <!-- END HEADER -->
+                
+            <!--  START Banner SLIDER -->
+                <div class="container-fluid mt-55">
+                <div class="row">
+                    <div class="checkoout_container">
+						<div class="home_del">
+							<div class="icon"><img src="assets/img/google-icon/delivery.png"></div>
+							<div class="homedel_text">
+								<p> {{'Home_Delivery ' | translate}}</p>
+								<p>{{delivery_address.CITY_NAME + " , " + " " + delivery_address.COUNTRY_NAME}}</p>
+							</div>
+						</div>
+						<!--<div class="mobile_edit">
+							<p><span>Mobile: </span>+96-5500864234 <a>Edit</a></p>
+							<span class="vrfd"><img src="assets/img/google-icon/google-circle.png"> verified</span>
+						</div>-->
+                        <div class="dlvry_container">
+                            <div class="dlvry_heading">
+                                <p>{{'Delivery_Address' | translate}}</p>
+                            </div>
+                            <div class="dlvry_address">
+                                <div class="dlvry_address_heading">
+                                    <h5>{{'Your_Address' | translate}}</h4>
+                                    <!-- <a href="javascript:void(0)"><img src="assets/img/icon/edit_fill.png" /></a> -->
+                                </div>
+                                <div class="dlvry_address_content">
+                                    <h5>
+
+                                        <span class="name">{{fullName}}</span><br>
+                                        {{delivery_address.landmark + " , " + delivery_address.address}}<br />
+                                        {{delivery_address.CITY_NAME + " , " + " " + delivery_address.COUNTRY_NAME}}<br />
+                                        {{delivery_address.zipcode}}<br />
+                                        <span>Mobile : {{delivery_address.mobile_number}}</span>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="dlvry_time_container mt-15">
+                            <div class="dlvry_address col-xs-12">
+                                <div class="dlvry_address_heading">
+                                    <!-- <div class="mui-checkbox">
+                                        <label>
+                                          <input type="checkbox" value="" checked>
+                                          Use Loyality Points
+                                        </label>
+                                    </div> -->
+                                    <!--<table class="mui-table">
+                                      <tbody>
+                                        <tr ng-if="subtotalafterdiscount">
+                                          <td>{{'Sub_Total' | translate}}</td>
+                                          <td align="right">{{currency}} {{subtotalafterdiscount | number : 2}}</td>
+                                        </tr>
+                                        <tr ng-if="!subtotalafterdiscount">
+                                            <td>{{'Sub_Total' | translate}}</td>
+                                            <td align="right">{{currency}} {{subtotalbeforediscount | number : 2}}</td>
+                                        </tr>
+                                        <tr ng-if="coupon_discount == '0'">
+                                          <td>{{'Coupon_Discount' | translate}}</td>
+                                          <td align="right">{{currency}} 0.00</td>
+                                        </tr>
+                                        <tr ng-if="coupon_discount != '0' && coupon_discount">
+                                            <td>{{'Coupon_Discount' | translate}}</td>
+                                            <td align="right">{{currency}} {{coupon_discount}}</td>
+                                          </tr>
+                                        <tr>
+                                          <td>{{'VAT' | translate}}</td>
+                                          <td align="right">{{currency}} {{tax_amount | number : 2}}</td>
+                                        </tr>
+                                        <tr>
+                                          <td>{{'Total' | translate}}</td>
+                                          <td align="right">{{currency}} {{finalTotal | number : 2}}</td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>-->
+                        <!--<div class="view_prod">
+                            <p class="col-xs-6"><a href="javascript:void(0)">{{'View_Items' | translate}}</a></p>
+                            <p class="col-xs-6 text-right"><span class="prod_qty">{{cart_count}} </span>{{'products_in_cart' | translate}}</p>
+                        </div>
+                        <div class="submit-btn col-sm-6 col-xs-12 text-center mt-25">
+                            <a href="javascript:void(0)" ng-click="paymode()">{{'Proceed_To_Payment' | translate}}</a>
+                        </div>-->
+                    </div>
+                </div>
+                </div>
+				
+				<div class="fixed_checkout">
+					<div href="javascript:void(0)">
+						<div class="checkout_container">
+							<p class=""><span>{{'Total' | translate}}</span>{{currency}} {{finalTotal | number : 2}}</p>
+							<a href="javascript:void(0)" ng-click="paymode()">{{'Make_Payment' | translate}}</a>
+						</div>
+					</div>
+				</div>
+    
+
+<!--End of Pop up-->
+    <!-- <div ng-if="payment.error" class="payment_error">
+        <h3>No Data</h3>
+    </div> -->
+</div>

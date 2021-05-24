@@ -1,0 +1,128 @@
+<style>
+	.nav > li.page_name {
+		position: absolute;
+		height: 45px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		left: 0;
+		top: 0;
+		padding-bottom: 10px;
+	}
+	.navbar-inverse .navbar-nav>li>a {
+		display: flex;
+		align-items: center;
+	}
+	.navbar-inverse .navbar-nav>li>a>p {
+		padding: 0 0px 0 10px;
+		text-transform: capitalize;
+	}
+</style>
+
+<div ng-controller="search">  
+	<div style='display:none;' class="homes"></div>
+	<!-- END HEADER -->
+	<header class="container-fluid nav-down">
+		<div class="row">
+			<nav class="navbar navbar-inverse">
+				<div class="container no-padding">
+					<ul class="nav navbar-nav top_header text-center">
+						<li class="menu_icon "><a href="javascript:void(0)">
+                            <img src="assets/img/icon/back.png"  ng-if="valuekey == 'home'" ng-click="back()" id="asdf" alt="menu icon" style="width: 13px;" />
+                            <img src="assets/img/icon/back.png"  ng-if="valuekey !== 'home'" ng-click="backToGo()" id="asdf" alt="menu icon" style="width: 13px;" />
+                        
+                        </a></li>
+						<li class="page_name">
+							<a href="javascript:void(0)" class="text-left text-center">
+								<p>{{'Search' | translate}}</p>
+							</a>
+						</li>
+
+					</ul>
+					
+					<ul class="nav navbar-nav bottom_header">
+						<li class="menu_search_container">
+							<a href="javascript:void(0)">
+								<input type="text" class="menu_search" name="searchProduct"  onkeyup="searchProduct(event)"/>
+								<span><img width="25" src="assets/img/google-icon/google-search.png"></span>
+								<p href="javascript:void(0)" class="search-text">Cancel</p>
+							</a>
+						</li>
+					</ul>
+
+				</div>
+			</nav>
+
+		</div>
+		<!-- MOBILE-MENU-AREA END -->
+	</header>
+	<!-- END HEADER -->
+	<div class="main_search_page mt-85">
+		<div class="search-default">
+			<div class="most-popular">Most Popular Search</div>
+			<ul>
+				<li>mars Chocolate <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li>lux Botanicals <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li>lipton tea <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li>tresmme <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li>dove <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li>sunsilk <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li>signals <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li>mars Chocolate <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li>lux Botanicals <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li>lipton tea <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li>tresmme <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li>dove <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li>sunsilk <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li>signals <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li>mars Chocolate <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li>lux Botanicals <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li>lipton tea <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li>tresmme <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li>dove <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li>sunsilk <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li>signals <span><img src="assets/img/google-icon/next.png"></span></li>
+			</ul>
+		</div>
+		
+		<div class="search-after-input">
+			<ul>
+				<li>
+					<span><img src="assets/img/google-icon/google-search-black.png"></span>
+					<p>Wheat <span class="department">in all department</span></p>
+					<span><img src="assets/img/google-icon/next.png"></span>
+				</li>
+				<li>
+					<span><img src="assets/img/google-icon/google-search-black.png"></span>
+					<p>Wheat <span class="department">in all department</span></p>
+					<span><img src="assets/img/google-icon/next.png"></span>
+				</li>
+				<li>
+					<span><img src="assets/img/google-icon/google-search-black.png"></span>
+					<p>Wheat <span class="department">in all department</span></p>
+					<span><img src="assets/img/google-icon/next.png"></span>
+				</li>
+				<li>
+					<span><img src="assets/img/google-icon/google-search-black.png"></span>
+					<p>Wheat <span class="department">in all department</span></p>
+					<span><img src="assets/img/google-icon/next.png"></span>
+				</li>
+				<li>
+					<span><img src="assets/img/google-icon/google-search-black.png"></span>
+					<p>Wheat <span class="department">in all department</span></p>
+					<span><img src="assets/img/google-icon/next.png"></span>
+				</li>
+				<li>
+					<span><img src="assets/img/google-icon/google-search-black.png"></span>
+					<p>Wheat <span class="department">in all department</span></p>
+					<span><img src="assets/img/google-icon/next.png"></span>
+				</li> 
+			</ul>
+		</div>
+	</div>
+	
+	
+
+<!--End of Pop up-->
+</div>

@@ -1,0 +1,806 @@
+<style>
+    #slides_control > div{
+      height: auto;
+    }
+    img{
+      margin:auto;
+      width: auto;
+      height: auto;
+    }
+    #slides_control { 
+     position:relative;
+      width: 100%;
+      
+    }
+    .carousel-control.right {
+    background-image:none !important;
+    color: #000 !important;
+    }
+    .carousel-control.left {
+    background-image:none !important;
+    color: #000 !important;
+    }
+    .carousel-indicators li
+    {
+        border:1px solid #000 !important;
+    }
+    .carousel-indicators
+    {
+        bottom: -5px !important;
+    }
+    .carousel-indicators .active
+    {
+    
+        margin-right: 6px;
+        background-color:#666;
+    }
+    .carousel-indicators li
+    {
+        margin-right: 6px;
+    }
+    /** Controls **/
+    .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next {
+        right: 50%;
+        margin-right: -10px;
+        opacity: 0;
+    }
+    
+    .carousel-control .glyphicon-chevron-left, .carousel-control .icon-prev {
+        left: 50%;
+        margin-left: -10px;
+        opacity: 0;
+    }
+    
+    a.left.carousel-control
+    {
+        position: absolute;
+        top: 50%;
+        z-index: 5;
+        display: none;
+        margin-top: -10px;
+    
+       
+        margin-left: -10px;
+    }
+    a.right.carousel-control
+    {
+        
+        margin-right: -10px;
+        position: absolute;
+        top: 50%;
+        z-index: 5;
+        display: none;
+        margin-top: -10px;
+    }
+    #autocomplete {
+  width: 100%;
+}
+.slick-slide {
+    display: none;
+    float: left;
+    height: auto;
+    min-height: 1px;
+    outline: 0;
+	/*width: 100% !important;*/
+}
+    /** ! controls **/
+	
+.section-heading{
+    width: max-content;
+	max-width: calc(100% - 100px);
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-height: 30px;
+    max-height: 30px;
+}
+[sidebarjs-container]{width: 280px !important;}
+[sidebarjs-background]{
+	position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100vh !important;
+}
+
+[sidebarjs].sidebarjs--is-visible [sidebarjs-background]{
+    opacity: .5 !important;
+}
+[sidebarjs].sidebarjs--is-visible + #main{
+position:fixed;
+width:100%;
+}
+.top_header {
+    min-height: 50px;
+}
+.nav > li.cart_icon img {
+    height: 30px;
+    width:30px;
+}
+.nav > li.cart_icon a:first-child {
+    padding-left: 20px;
+}
+    </style>
+<div class="bg" ng-controller="dash_home" id="containernew">
+    <div style='display:none;' class="homes"></div>
+	<sidebarjs>
+		<div class="side-bar">
+			<div id="mySidenav" class="sidenav">
+				<!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> -->
+				<ul class="side_nav">
+					<li ng-if="loggedin"><a href="javascript:void(0)"><span ng-if="profileImage != ''"><img src="{{profileImage}}"
+									alt="" /> </span>
+							 <span ng-if="profileImage == ''"><img src="assets/img/icon/user_icon.png" alt="" /> </span> <span>{{fullName}}</span></a></li>
+
+					<li ng-if="!loggedin"><a href="javascript:void(0)"><span><img src="assets/img/icon/user_icon.png"
+									alt="" /> </span><span>{{'Welcome' | translate}}</span></a></li>
+					<li><a href="javascript:void(0)"><!--<img src="assets/img/icon/flag_icon.png" alt="" />--> <span>{{country_name}}</span><img
+								src="assets/img/icon/edit_icon.png" alt="" class="location_view" ng-click="toswitchCountry()"/> </a></li>
+
+					<li ng-if="loggedin" ng-click="profile()"><a href="javascript:void(0)"><img src="assets/img/icon/profile.png"
+								alt="" /> <span>{{'My_Profile' | translate}}</span></a></li>
+					<li ng-if="loggedin" ng-click="my_address()"><a href="javascript:void(0)"><img src="assets/img/icon/address.png"
+								alt="" /> <span>{{'My_Addresses' | translate}}</span></a></li>
+					<li ng-click="cart()"><a href="javascript:void(0)"><img src="assets/img/icon/cart_black.png" alt="" />
+							<span>{{'My_Cart' |translate}}</span></a></li>
+
+					<li ng-if="loggedin" ng-click="myorder()"><a href="javascript:void(0)"><img src="assets/img/icon/orders.png"
+                                alt="" /> <span>{{'My_Orders' | translate}}</span></a></li>
+					
+                                
+					<li ng-if="loggedin" ng-click="my_coupons()"><a href="javascript:void(0)"><img src="assets/img/icon/coupan_icon.png"
+                                alt="" /> <span>{{'My_Coupons' | translate}}</span></a></li>
+                                
+					<li ng-click="category()"><a href="javascript:void(0)"><img src="assets/img/icon/category.png" alt="" />
+							<span>{{'All_Categories' | translate}}</span></a></li>
+
+					<li ng-if="loggedin" ng-click="wishlist()"><a href="javascript:void(0)"><img src="assets/img/icon/wishlist.png"
+								alt="" /> <span>{{'Wishlist' | translate}}</span></a></li>
+
+					<li ng-if="loggedin" ng-click="wallet()"><a href="javascript:void(0)"><img src="assets/img/icon/wallet1.png" alt="" />
+							<span>{{'My_Wallet' | translate}}</span></a></li> 
+									
+					<li ng-if="loggedin" ng-click="rewards()"><a href="javascript:void(0)"><img src="assets/img/icon/reward_icon.png" alt="" />
+							<span>{{'My_Rewards' | translate}}</span></a></li>
+
+					<li ng-click="valuedpack()"><a href="javascript:void(0)"><img src="assets/img/icon/valued.png" alt="" />
+							<span>{{'Valued_Pack' | translate}}</span></a></li>
+
+					<li ng-if="loggedin" ng-click="manage_ticket()"><a href="javascript:void(0)"><img src="assets/img/icon/tickets.png"
+								alt="" /> <span>{{'Manage_Tickets' | translate}}</span></a></li>
+				<li ng-if="loggedin && type == '6'" ng-click="myorder_assign()"><a href="javascript:void(0)"><img src="assets/img/icon/orders.png"
+                                alt="" /> <span>{{'Manage_Assign_Orders' | translate}}</span></a></li>
+					
+					<li ng-if="loggedin && type == '6'" ng-click="manage_delivery_person()"><a href="javascript:void(0)"><img src="assets/img/icon/orders.png" alt="" /> <span>{{'Manage_Delivery_Person' | translate}}</span></a></li>
+
+					<li ng-click="switch_country()"><a href="javascript:void(0)"><img src="assets/img/icon/country.png" alt="" />
+							<span>{{'Switch_Country' | translate}}</span></a></li>
+					<li ng-click="language()"><a href="javascript:void(0)"><img src="assets/img/icon/language.png" alt="" />
+							<span>{{'Switch_Language' | translate}}</span></a></li>
+
+					<li ng-if="loggedin" ng-click="change_password()"><a href="javascript:void(0)"><img src="assets/img/icon/password.png"
+								alt="" /> <span>{{'Change_Password' | translate}}</span></a></li>
+					<li ng-click="contact_us()"><a href="javascript:void(0)"><img src="assets/img/icon/contact.png"
+								alt="" /> <span>{{'Contact_Us' | translate}}</span></a></li>
+								
+					<li ng-click="about_us()"><a href="javascript:void(0)"><img src="assets/img/icon/aboutus.png"
+								alt="" /> <span>{{'About_Us' | translate}}</span></a></li>
+
+					<li ng-click="privacy_policy()"><a href="javascript:void(0)"><img src="assets/img/icon/policy.png"
+								alt="" /> <span>{{'privacy_policy' | translate}}</span></a></li>
+
+					<li ng-if="loggedin" ng-click="logout()"><a href="javascript:void(0)"><img src="assets/img/icon/logout.png"
+								alt="" /> <span>{{'Log_Out' | translate}}</span></a></li>
+					<li ng-if="!loggedin" ng-click="login()"><a href="javascript:void(0)"><img src="assets/img/icon/log_in.png"
+								alt="" /> <span>{{'Log_In' | translate}}</span></a></li>
+					<li ng-if="!loggedin" ng-click="register()"><a href="javascript:void(0)"><img src="assets/img/icon/register.png"
+								alt="" /> <span>{{'Sign_Up' | translate}}</span></a></li>
+				</ul>
+			</div>
+		</div>
+	</sidebarjs>
+    <div id="main" onclick="closeNav()">
+        <header class="container-fluid nav-down tobefloat">
+            <div class="row">
+                <nav class="navbar navbar-inverse">
+                    <div class="container no-padding" id="mySidenav" class="sidenav">
+                        <ul class="nav navbar-nav top_header">
+                            <li class="menu_icon "><a class="pl-5" href="javascript:void(0)"><img src="assets/img/google-icon/google-menu.png"
+                                        id="asdf" alt="menu icon" sidebarjs-toggle/></a></li>
+                            <li class="logo_name ">
+                                <a href="javascript:void(0)" class="text-left ">
+                                    <!--<p>{{'Delivery_Location' | translate}}</p>-->
+                                    <span class="location_view" ng-click="toswitchCountry()">{{country_name}} <i class="fa fa-caret-down" aria-hidden="true"></i></span>
+                                    <!-- <img src="assets/img/header/pencil.png" alt=""  /> -->
+                                </a>
+                            </li>
+                            <li class="cart_icon">
+								<a href="javascript:void(0)" ng-click="notification()"><img width="30" src="assets/img/google-icon/google-notification.png"
+                                        alt="cart icon" /></a>
+                                <a ng-click="cart()" href="javascript:void(0)"><img width="30"  src="assets/img/google-icon/google-cart.png"
+                                        alt="cart icon" />
+                                        <span class="badge">{{cart_count}}</span>
+                                </a>
+                                
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav bottom_header">
+                              <li class="menu_search_container"><a href="javascript:void(0)">
+                                    <!--                     <img src="assets/img/header/search_icon.png" alt="cart icon" />
+ -->
+                                    <input type="text" class="menu_search" name="searchProduct" ng-model="searchProduct"
+                                    ng-keyup="$event.keyCode == 13 ? searchresults() : null"  placeholder="{{'Search_Products_Brands_and_More' | translate}}" required/>
+                                    <button class="search_bar_span" ng-click="searchresults()" ><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                                    <span><img width="25" src="assets/img/google-icon/google-search.png"></span>
+                                </a></li>
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+            <!-- MOBILE-MENU-AREA END -->
+        </header>
+        <!-- END HEADER -->
+
+        
+
+        <!--  START Banner SLIDER -->
+        <div class="container-fluid">
+            <div class="row">
+                <div id="banner_slider" data-aos="fade-up" ng-click="details($event)">
+                    <div id="slides_control">
+                        <div>
+                            <slick class="slider" settings="slickConfig0">
+                                <div ng-repeat="slide in slider">
+                                    <img style="height:auto;" class="slide_image" data-catid="{{slide.category_id}}" data-offerid="{{slide.URL}}" ng-src="{{slide.product_image}}">
+                                </div>
+                            </slick>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  END Banner SLIDER -->
+
+        <!--  START advertisement Section -->
+        <!--	<div class="container-fluid animatedParent animateOnce">
+            <div class="row">
+                <div id="adv_1">
+                    <a href="./product_list.php">
+                        <div class="category-img">
+                            <img src="assets/img/banner/advertise_01.png" alt="" class="animated fadeInDown slow"/>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>-->
+
+        <!--  END advertisement Section -->
+
+        <!--  START Best Picks Section -->
+        
+        <div class="" ng-init="season_fetch()">
+            
+            <div class="product_catg_section" ng-if="setdata == 1 && best_picks_of_the_season" >
+                
+				<div class="head_subhead">
+					<div class="section-heading" data-aos="fade-right">
+						<p>{{'Best_picks_of_the_season' | translate}}</p>
+					</div>
+					<div class="section-heading-view" ng-click="see_all('1')" data-aos="fade-left">
+						<a href="javascript:void(0)">{{'View_all' | translate}} <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                    </div>
+                    
+                </div>
+                
+                <div class="col-xs-12 no-padding cat_flex">
+                    <div class="mt-15 mb-10" ng-repeat="x in best_picks_of_the_season">
+                        <!-- {{$index}} -->
+                        <div class="catg_product_conta.section-headinginer main-product-div-container white-bg" data-aos="fade-up">
+                            <a href="javascript:void(0)">
+                                <div class="offer-img" ng-click="product_view(x.id)">
+                                    <div class="offer-img-container mb-20">
+										<img src="{{x.product_image}}" alt="" class="img-responsive" />
+									</div>
+                                    <div class="catg_overlay">
+										<p class="product_price">{{currency}} {{x.menu_varient_data.price}}</p>
+                                        <p>{{x.menu_name}}</p>
+                                    </div>
+								</div>
+								 
+                            </a>
+							<div class="new_add_btn">
+							
+									<div class="add_item_container sub_add_btn" id="firstt_{{x.id}}" data-attr="{{x.menu_varient_data.id}}">
+
+											<div class="add_item_button sub_add_btn" data-rowid="{{x.menu_varient_data.cart_row_id}}" id="enableCart_{{x.menu_varient_data.id}}" ng-show="x.menu_varient_data.cart_row_id">
+													<button class="less_item" data-menuid="{{x.menu_varient_data.id}}" data-weightid="{{x.menu_varient_data.id}}" id="minus_{{x.menu_varient_data.id}}"
+													 ng-click="minusToCart($event)">
+															-
+													</button>
+													<input type="text" id="quantity_{{x.menu_varient_data.id}}" value="{{x.menu_varient_data.cart_quantity}}" disabled="">
+													
+													<button class="add_item" data-menuid="{{x.menu_varient_data.id}}" data-weightid="{{x.menu_varient_data.id}}" data-weightid="{{x.menu_varient_data.id}}"
+													 id="plus_{{x.menu_varient_data.id}}" ng-click="plusToCart($event)">
+															+
+													</button>
+											</div>
+
+											<div class="add_cart_button sub_add_btn" id="addToCart_{{x.menu_varient_data.id}}" ng-show="x.menu_varient_data.cart_row_id == '' && x.menu_varient_data.ALLOW_TO_ADD_IN_CART == 'yes'">
+													<button class="addcart_button" data-menuid="{{x.id}}" data-user_id="{{x.MANUFACTTURER_ID}}" data-weightid="{{x.menu_varient_data.id}}" id="addCart_{{x.menu_varient_data.id}}"
+													 ng-click="addToCart($event)">{{'Add_To_cart' | translate}}</button>
+											</div>
+
+											<div class="add_cart_button div_in_stock sub_add_btn" id="outofstock_{{x.menu_varient_data.id}}" ng-show="x.menu_varient_data.cart_row_id == '' && x.menu_varient_data.ALLOW_TO_ADD_IN_CART == 'no'">
+													<button class="out_of_stock" data-menuid="{{x.menu_varient_data.id}}" data-user_id="{{x.MANUFACTTURER_ID}}" data-weightid="{{x.menu_varient_data.id}}" id="addCart_{{x.menu_varient_data.id}}"
+													 >{{ 'Out_Of_Stocks' | translate}}</button>
+											</div>
+
+									</div>
+							
+							</div>
+                            <div class="wislist_sub wishlist-container" ng-click="taptowish(x.menu_varient_data.id, x.menu_varient_data.is_in_wishlist)">
+                                <i id="blank_{{x.menu_varient_data.id}}" class="fa heart fa-heart" ng-show="x.menu_varient_data.is_in_wishlist == '0'"></i>
+                                <i id="filler_{{x.menu_varient_data.id}}" class="fa heart fa-heart fill" ng-show="x.menu_varient_data.is_in_wishlist == '1'"></i>
+							</div>
+                        </div>
+                    </div>
+				</div>
+            </div>
+        </div>
+        <!--  END Best Picks Section -->
+		<!--Popular Categories 
+		<div class="popular-categories product_catg_section mt-10" ng-init="category_data()">
+			<div class="head_subhead">
+				<div class="section-heading" data-aos="fade-right">
+					<p>Popular Categories</p>
+				</div>
+				<div class="section-heading-view" ng-click="category()" data-aos="fade-left">
+					<a href="javascript:void(0)">{{'View_all' | translate}} <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+				</div>
+            </div>
+			<div class="col-xs-12 no-padding cat_flex">
+				<div class="mt-15 mb-10 pop-pro-list" ng-repeat="x in category_data" >
+					<a style="background-image:url({{x.cat_image}})">{{x.name}}</a>
+					<!--<a style="background-image:url('assets/img/ifada-category3.png')">Cleaning & Washing</a>
+					
+				</div>
+				<!--<div class="mt-15 mb-10 pop-pro-list">
+					<a style="background-image:url('assets/img/ifada-category2.png')">Beauty & Personal Care</a>
+					<a style="background-image:url('assets/img/ifada-category5.png')">Dairy</a>
+				</div>
+				<div class="mt-15 mb-10 pop-pro-list">
+					<a style="background-image:url('assets/img/ifada-category4.png')">Tea Time</a>
+					<a style="background-image:url('assets/img/ifada-category.png')">Bakery</a>
+				</div>
+				<div class="mt-15 mb-10 pop-pro-list">
+					<a style="background-image:url('assets/img/ifada-category2.png')">Bundle Blast</a>
+					<a style="background-image:url('assets/img/ifada-category3.png')">Fresh Fruit & Veetables</a>
+				</div>
+			</div>
+		</div>-->
+		<!--Popular Categories -->
+		
+		<!--Popular Categories -->
+		<div class="popular-categories product_catg_section mt-10" ng-if="popular_category">
+			<div class="head_subhead">
+				<div class="section-heading" data-aos="fade-right">
+					<p>{{'Popular_Categories' | translate}}</p>
+				</div>
+				<div class="section-heading-view" ng-click="pop_category();" data-aos="fade-left">
+					<a href="javascript:void(0)">{{'View_all' | translate}} <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+				</div>
+            </div>
+			<div class="col-xs-12 no-padding cat_flex">
+				<div class="mt-15 mb-10 pop-pro-list" ng-repeat="pc in popular_category" ng-click="details($event)">
+					<a  data-catid="{{pcc.id}}" data-offerid="{{pcc.url}}" ng-repeat="pcc in pc" style="background-image:url('{{pcc.cat_image}}')">{{pcc.name}}</a>
+					
+				</div>
+			<!--	<div class="mt-15 mb-10 pop-pro-list">
+					<a style="background-image:url('assets/img/ifada-category2.png')">Beauty & Personal Care</a>
+					<a style="background-image:url('assets/img/ifada-category5.png')">Dairy</a>
+				</div>
+				<div class="mt-15 mb-10 pop-pro-list">
+					<a style="background-image:url('assets/img/ifada-category4.png')">Tea Time</a>
+					<a style="background-image:url('assets/img/ifada-category.png')">Bakery</a>
+				</div>
+				<div class="mt-15 mb-10 pop-pro-list">
+					<a style="background-image:url('assets/img/ifada-category2.png')">Bundle Blast</a>
+					<a style="background-image:url('assets/img/ifada-category3.png')">Fresh Fruit & Veetables</a>
+				</div>-->
+			</div>
+			
+		</div>
+		
+		
+        <div class="" ng-if="mobile_app_product" >
+            <div class="product_catg_section mt-15" ng-repeat="map in mobile_app_product" >
+				<div class="head_subhead">
+					<div class="section-heading" data-aos="fade-right">
+						<p>{{map.category_name}}</p>
+					</div>
+					<div class="section-heading-view" ng-click="details($event)" data-aos="fade-left">
+						<a   data-catid="{{map.category_id}}" data-offerid="{{map.url}}"  href="javascript:void(0)">{{'View_all' | translate}} <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+					</div>
+				</div>
+                <div class="col-xs-12 no-padding cat_flex">
+                    <div class="mt-15 mb-10" ng-repeat="x in map.product_data">
+                        <div class="catg_product_container main-product-div-container white-bg" data-aos="fade-up">
+                            <a href="javascript:void(0)">
+                                <div class="offer-img" ng-click="product_view(x.id,map.category_id,map.url)">
+                                    <div class="offer-img-container mb-20">
+										<img src="{{x.product_image}}" alt="" class="img-responsive" />
+                                    </div>
+									<div class="catg_overlay">
+										<p class="product_price">{{currency}} {{x.menu_varient_data.price}}</p>
+                                        <p>{{x.menu_name}}</p>
+                                        
+                                    </div>
+                                </div>
+								<!--<div class="new_add_btn">
+									<div class="add_text">Add to Cart</div>
+									<div class="add-buttons-cart" style="display:none;">
+										<button class="decrement"><i class="fa fa-minus" aria-hidden="true"></i></button>
+										<input type="text" value="1"></input>
+										<button class="increment"><i class="fa fa-plus" aria-hidden="true"></i></button>
+									</div>
+								</div>-->
+								<div class="new_add_btn">
+								
+									<div class="add_item_container sub_add_btn" id="firstt_{{x.id}}" data-attr="{{x.menu_varient_data.id}}">
+
+											<div class="add_item_button sub_add_btn" data-rowid="{{x.menu_varient_data.cart_row_id}}" id="enableCart_{{x.menu_varient_data.id}}" ng-show="x.menu_varient_data.cart_row_id">
+													<button class="less_item" data-menuid="{{x.menu_varient_data.id}}" data-weightid="{{x.menu_varient_data.id}}" id="minus_{{x.menu_varient_data.id}}"
+													 ng-click="minusToCart($event)">
+															-
+													</button>
+													<input type="text" id="quantity_{{x.menu_varient_data.id}}" value="{{x.menu_varient_data.cart_quantity}}" disabled="">
+													
+													<button class="add_item" data-menuid="{{x.menu_varient_data.id}}" data-weightid="{{x.menu_varient_data.id}}" data-weightid="{{x.menu_varient_data.id}}"
+													 id="plus_{{x.menu_varient_data.id}}" ng-click="plusToCart($event)">
+															+
+													</button>
+											</div>
+
+											<div class="add_cart_button sub_add_btn" id="addToCart_{{x.menu_varient_data.id}}" ng-show="x.menu_varient_data.cart_row_id == '' && x.menu_varient_data.ALLOW_TO_ADD_IN_CART == 'yes'">
+													<button class="addcart_button" data-menuid="{{x.id}}" data-user_id="{{x.MANUFACTURER_ID}}" data-weightid="{{x.menu_varient_data.id}}" id="addCart_{{x.menu_varient_data.id}}"
+													 ng-click="addToCart($event)">{{'Add_To_cart' | translate}}</button>
+											</div>
+
+											<div class="add_cart_button div_in_stock sub_add_btn" id="outofstock_{{x.menu_varient_data.id}}" ng-show="x.menu_varient_data.cart_row_id == '' && x.menu_varient_data.ALLOW_TO_ADD_IN_CART == 'no'">
+													<button class="out_of_stock" data-menuid="{{x.menu_varient_data.id}}" data-user_id="{{x.MANUFACTURER_ID}}" data-weightid="{{x.menu_varient_data.id}}" id="addCart_{{x.menu_varient_data.id}}"
+													 >{{ 'Out_Of_Stocks' | translate}}</button>
+											</div>
+
+									</div>
+							
+							</div>
+                            </a>
+                            <div class="wislist_sub wishlist-container" ng-click="taptowish(x.menu_varient_data.id, x.menu_varient_data.is_in_wishlist)">
+                                <i id="blank_{{x.menu_varient_data.id}}" class="fa heart fa-heart" ng-show="x.menu_varient_data.is_in_wishlist == '0'"></i>
+                                <i id="filler_{{x.menu_varient_data.id}}" class="fa heart fa-heart fill" ng-show="x.menu_varient_data.is_in_wishlist == '1'"></i>
+                              </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        
+		<!--Popular Categories -->
+
+        <!--  START Advertisement Section -->
+        <div class="container-fluid" ng-click="details($event)">
+            <div class="row">
+                <div id="start1" class="mt-10" data-aos="fade-up">
+                    <a href="javascript:void(0)">
+                        <div class="category-img">
+                            <img id="custom_slider" data-catid="{{offer[1].category_id}}" data-offerid="{{offer[1].URL}}" ng-if="offer[1].ad_mobile_image" style="min-height: 240px;max-height:initial" src="{{offer[1].ad_mobile_image}}" alt="" class="" />
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!--  END Advertisement Section  -->
+
+
+
+        <!--  START Product of the day  Section -->
+        <div class="" ng-if="setdata == 1 && product_of_the_day">
+            <div class="product_catg_section mt-15">
+				<div class="head_subhead">
+					<div class="section-heading" data-aos="fade-right">
+						<p>{{'product_of_the_day' | translate}}</p>
+					</div>
+					<div class="section-heading-view" ng-click="see_all('2')" data-aos="fade-left">
+						<a href="javascript:void(0)">{{'View_all' | translate}} <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+					</div>
+				</div>
+                <div class="col-xs-12 no-padding cat_flex">
+                    <div class="mt-15 mb-10"  ng-repeat="y in product_of_the_day | limitTo:6:0">
+                        <div class="catg_product_container main-product-div-container white-bg" data-aos="fade-up">
+                            <a href="javascript:void(0)">
+                                <div class="offer-img" ng-click="product_view(y.id, y.MANUFACTURER_ID)">
+                                    <div class="offer-img-container  mb-20">
+										<img src="{{y.product_image}}" alt="" class="img-responsive" />
+                                    </div>
+									<div class="catg_overlay">
+										<p class="product_price">{{currency}} {{y.menu_varient_data.price}}</p>
+                                        <p>{{y.menu_name}}</p>
+                                        
+                                    </div>
+                                </div>
+								<!--<div class="new_add_btn">
+									<div class="add_text" id="addCartText">Add to Cart</div>
+									<div class="add-buttons-cart" style="display:none;">
+										<button class="decrement"><i class="fa fa-minus" aria-hidden="true"></i></button>
+										<input type="text" value="1"></input>
+										<button class="increment"><i class="fa fa-plus" aria-hidden="true"></i></button>
+									</div>
+								</div>-->
+								<div class="new_add_btn">
+							
+									<div class="add_item_container sub_add_btn" id="firstt_{{y.id}}" data-attr="{{y.menu_varient_data.id}}">
+
+											<div class="add_item_button sub_add_btn" data-rowid="{{y.menu_varient_data.cart_row_id}}" id="enableCart_{{y.menu_varient_data.id}}" ng-show="y.menu_varient_data.cart_row_id">
+													<button class="less_item" data-menuid="{{y.menu_varient_data.id}}" data-weightid="{{y.menu_varient_data.id}}" id="minus_{{y.menu_varient_data.id}}"
+													 ng-click="minusToCart($event)">
+															-
+													</button>
+													<input type="text" id="quantity_{{y.menu_varient_data.id}}" value="{{y.menu_varient_data.cart_quantity}}" disabled="">
+													
+													<button class="add_item" data-menuid="{{y.menu_varient_data.id}}" data-weightid="{{y.menu_varient_data.id}}" data-weightid="{{y.menu_varient_data.id}}"
+													 id="plus_{{y.menu_varient_data[0].id}}" ng-click="plusToCart($event)">
+															+
+													</button>
+											</div>
+
+											<div class="add_cart_button sub_add_btn" id="addToCart_{{y.menu_varient_data.id}}" ng-show="y.menu_varient_data.cart_row_id == '' && y.menu_varient_data.ALLOW_TO_ADD_IN_CART == 'yes'">
+													<button class="addcart_button" data-menuid="{{y.id}}" data-user_id="{{y.MANUFACTURER_ID}}" data-weightid="{{y.menu_varient_data.id}}" id="addCart_{{y.menu_varient_data.id}}"
+													 ng-click="addToCart($event)">{{'Add_To_cart' | translate}}</button>
+											</div>
+
+											<div class="add_cart_button div_in_stock sub_add_btn" id="outofstock_{{y.menu_varient_data.id}}" ng-show="y.menu_varient_data.cart_row_id == '' && y.menu_varient_data.ALLOW_TO_ADD_IN_CART == 'no'">
+													<button class="out_of_stock" data-menuid="{{y.menu_varient_data.id}}" data-user_id="{{y.MANUFACTURER_ID}}" data-weightid="{{y.menu_varient_data.id}}" id="addCart_{{y.menu_varient_data.id}}"
+													 >{{ 'Out_Of_Stocks' | translate}}</button>
+											</div>
+
+									</div>
+							
+							</div>
+                            </a>
+                            <div class="wislist_sub wishlist-container" ng-click="taptowish(y.menu_varient_data.id, y.menu_varient_data.is_in_wishlist)">
+                                <i id="blank_{{y.menu_varient_data.id}}" class="fa heart fa-heart" ng-show="y.menu_varient_data.is_in_wishlist == '0'"></i>
+                                <i id="filler_{{y.menu_varient_data.id}}" class="fa heart fa-heart fill" ng-show="y.menu_varient_data.is_in_wishlist == '1'"></i>
+                              </div>
+                        </div>
+                    </div>
+
+  
+
+                </div>
+            </div>
+        </div>
+        <!--  END Product of the day  Section -->
+
+        <!--  START Advertisement Section -->
+        <div class="container-fluid" ng-click="details($event)">
+            <div class="row">
+                <div id="adv_2" class="mt-10" data-aos="fade-up">
+                    <a href="javascript:void(0)">
+                        <div class="category-img">
+                            <img id="custom_second_slider" data-catid="{{offer[3].category_id}}" data-offerid="{{offer[3].URL}}" ng-if="offer[3].ad_mobile_image" style="min-height: 240px;max-height: initial;" src="{{offer[3].ad_mobile_image}}" alt="" class="" />
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!--  END Advertisement Section  -->
+
+
+        <!--  START Featured Product Section -->
+        <div class="" ng-if="setdata == 1 && best_picks_of_the_featured_products" >
+            <div class="product_catg_section mt-15">
+				<div class="head_subhead">
+					<div class="section-heading" data-aos="fade-right">
+						<p>{{'Featured_Product' | translate}}</p>
+					</div>
+					<div class="section-heading-view" ng-click="see_all('3')" data-aos="fade-left">
+						<a href="javascript:void(0)">{{'View_all' | translate}} <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+					</div>
+				</div>
+                <div class="col-xs-12 no-padding cat_flex">
+                    <div class="mt-15 mb-10" ng-repeat="x in best_picks_of_the_featured_products | limitTo:6:0">
+                        <div class="catg_product_container main-product-div-container white-bg" data-aos="fade-up">
+                            <a href="javascript:void(0)">
+                                <div class="offer-img" ng-click="product_view(x.id)">
+                                    <div class="offer-img-container mb-20">
+										<img src="{{x.product_image}}" alt="" class="img-responsive" />
+                                    </div>
+									<div class="catg_overlay">
+										<p class="product_price">{{currency}} {{x.menu_varient_data.price}}</p>
+                                        <p>{{x.menu_name}}</p>
+                                        
+                                    </div>
+                                </div>
+								<!--<div class="new_add_btn">
+									<div class="add_text">Add to Cart</div>
+									<div class="add-buttons-cart" style="display:none;">
+										<button class="decrement"><i class="fa fa-minus" aria-hidden="true"></i></button>
+										<input type="text" value="1"></input>
+										<button class="increment"><i class="fa fa-plus" aria-hidden="true"></i></button>
+									</div>
+								</div>-->
+								<div class="new_add_btn">
+							
+									<div class="add_item_container sub_add_btn" id="firstt_{{x.id}}" data-attr="{{x.menu_varient_data.id}}">
+
+											<div class="add_item_button sub_add_btn" data-rowid="{{x.menu_varient_data.cart_row_id}}" id="enableCart_{{x.menu_varient_data.id}}" ng-show="x.menu_varient_data.cart_row_id">
+													<button class="less_item" data-menuid="{{x.menu_varient_data.id}}" data-weightid="{{x.menu_varient_data.id}}" id="minus_{{x.menu_varient_data.id}}"
+													 ng-click="minusToCart($event)">
+															-
+													</button>
+													<input type="text" id="quantity_{{x.menu_varient_data.id}}" value="{{x.menu_varient_data.cart_quantity}}" disabled="">
+													
+													<button class="add_item" data-menuid="{{x.menu_varient_data.id}}" data-weightid="{{x.menu_varient_data.id}}" data-weightid="{{x.menu_varient_data.id}}"
+													 id="plus_{{x.menu_varient_data[0].id}}" ng-click="plusToCart($event)">
+															+
+													</button>
+											</div>
+
+											<div class="add_cart_button sub_add_btn" id="addToCart_{{x.menu_varient_data.id}}" ng-show="x.menu_varient_data.cart_row_id == '' && x.menu_varient_data.ALLOW_TO_ADD_IN_CART == 'yes'">
+													<button class="addcart_button" data-menuid="{{x.id}}" data-user_id="{{x.MANUFACTURER_ID}}" data-weightid="{{x.menu_varient_data.id}}" id="addCart_{{x.menu_varient_data.id}}"
+													 ng-click="addToCart($event)">{{'Add_To_cart' | translate}}</button>
+											</div>
+
+											<div class="add_cart_button div_in_stock sub_add_btn" id="outofstock_{{x.menu_varient_data.id}}" ng-show="x.menu_varient_data.cart_row_id == '' && x.menu_varient_data.ALLOW_TO_ADD_IN_CART == 'no'">
+													<button class="out_of_stock" data-menuid="{{x.menu_varient_data.id}}" data-user_id="{{x.MANUFACTURER_ID}}" data-weightid="{{x.menu_varient_data.id}}" id="addCart_{{x.menu_varient_data.id}}"
+													 >{{ 'Out_Of_Stocks' | translate}}</button>
+											</div>
+
+									</div>
+							
+							</div>
+                            </a>
+                            <div class="wislist_sub wishlist-container" ng-click="taptowish(x.menu_varient_data.id, x.menu_varient_data.is_in_wishlist)">
+                                <i id="blank_{{x.menu_varient_data.id}}" class="fa heart fa-heart" ng-show="x.menu_varient_data.is_in_wishlist == '0'"></i>
+                                <i id="filler_{{x.menu_varient_data.id}}" class="fa heart fa-heart fill" ng-show="x.menu_varient_data.is_in_wishlist == '1'"></i>
+                              </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <!--  END Featured Product Section -->
+
+          <!--  START Advertisement Section -->
+          <div class="container-fluid mb-15" ng-click="details($event)" ng-if="setdata == 1 && banner_category" >
+            <div class="row">
+                <div id="adv_2" class="mt-15">
+                    <a href="javascript:void(0)">
+                        <div class="category-img">
+                            <img id="custom_third_slider" data-catid="{{banner_category[0].id}}" data-offerid="{{banner_category[0].url}}"  style="min-height: 240px;max-height: initial;" src="{{banner_category_image_path}}/{{banner_category[0].banner_image}}" alt="" class="" />
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!--  END Advertisement Section 
+		<div class="fixed-floating-button">
+			<a><img src="assets/img/google-icon/google-phone.png"></a>
+		</div> -->
+
+        
+        <!--  START Featured category Section -->
+       <!--  <div class="container" ng-if="setdata == 1 && dairy_product"  >
+            <div class="product_catg_section mt-15 mb-15">
+
+                <div class="section-heading">
+                    <p>{{'Featured_Category' | translate}}</p>
+                </div>
+                <div class="section-heading-view" ng-click="View_all('4')">
+                    <a href="javascript:void(0)">{{'View_all' | translate}}</a>
+                </div>
+                <div class="col-xs-12 white-bg no-padding">
+                    <div class="col-xs-4 mt-15 mb-10 no-padding pl-5 pr-5" ng-repeat="x in dairy_product | limitTo:3:0">
+                        <div class="catg_product_container">
+                            <a href="javascript:void(0)">
+                                <div class="offer-img" ng-click="product_view(x.id)">
+                                    <div class="offer-img-container">
+										<img src="{{x.product_image}}" alt="" class="img-responsive" />
+                                    </div>
+									<div class="catg_overlay text-center">
+                                        <p>{{x.menu_name}}</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <div ng-hide="true" class="wislist_sub wishlist-container" ng-click="taptowish(x.menu_varient_data.id, x.menu_varient_data.is_in_wishlist)">
+                                <i id="blank_{{x.menu_varient_data.id}}" class="fa heart fa-heart-o" ng-show="x.menu_varient_data.is_in_wishlist == '0'"></i>
+                                <i id="filler_{{x.menu_varient_data.id}}" class="fa heart fa-heart fill" ng-show="x.menu_varient_data.is_in_wishlist == '1'"></i>
+                              </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div> -->
+        <!--  END featured category  Section -->
+
+
+      
+
+
+        <!-- Location Modal -->
+        <div class="modal fade" id="myLocation" role="dialog">
+            <div class="modal-vcenter">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="location-search">
+                                <input type="text" id="location-search" placeholder="Seacrh location..." />
+                            </div>
+                            <div class="submit-btn text-center">
+                                <a href="javascript:void(0)">Submit</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+	<!--End of Pop up-->
+    <div>
+	<div class="bottom_navigation"  ng-init="loginlogout()">
+		
+		<div class="bottom_block" ng-init="selecthome()">
+			<a  ng-click="homego();" ng-if="color" style="background:{{background}}">
+			<img src="assets/img/google-icon/google-home.png">
+			<span style="display:block;"> {{'Home' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="category()"><img src="assets/img/google-icon/google-category.png">
+			<span style="display:block;">{{'Category' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="orderList()"><img src="assets/img/google-icon/google-list.png">
+			<span style="display:block;">{{'My_Orders' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="gotoAccount()"><img src="assets/img/google-icon/google-account.png">
+			<span style="display:block;"> {{'Account' | translate}}</span>
+			</a>
+		</div>
+	</div>
+	</div>
+
+	<!--End of Pop up-->
+    </div>
+
+
+    <script>
+        
+
+    </script>
+	<script>
+	  
+	</script>

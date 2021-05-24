@@ -1,0 +1,76 @@
+<style>
+	.nav > li.page_name{
+		position: absolute;
+		height: 100%;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		left: 0;
+		top: 3px;
+		padding-bottom: 10px;
+	}
+	.nav > li.menu_icon {
+    width: 50px;
+    z-index: 999;
+    }
+</style>
+
+<div ng-controller="login">  
+	<div style='display:none;' class="homes"></div>
+	<!-- END HEADER -->
+	<header class="container-fluid nav-down">
+		<div class="row">
+			<nav class="navbar navbar-inverse">
+				<div class="container no-padding">
+					<ul class="nav navbar-nav top_header text-center">
+						<li class="menu_icon "><a ng-href="#!/dashboard/home"><img src="assets/img/icon/back.png"  alt="menu icon" style="width: 13px;" /></a>
+			</li>
+						<li class="page_name">
+							<a href="javascript:void(0)" class="text-left text-center">
+								<p>{{'Login' | translate}}</p>
+							</a>
+						</li>
+
+					</ul>
+
+				</div>
+			</nav>
+
+		</div>
+		<!-- MOBILE-MENU-AREA END -->
+	</header>
+	<!-- END HEADER -->
+	<div class="container">
+		<div class="login_form">
+			<form method="post" name="loginform" novalidate>
+				
+				<div class="form_container" style="padding-top:0">
+					<div class="mui-textfield col-sm-6 col-xs-12">
+						<input type="tel" id="email" name="mobileno" ng-model="mobileno" placeholder="{{'Mobile_Number' | translate}}" required>
+						<label for="email">{{'Mobile_Number' | translate}}</label>
+					</div>
+					<div class="mui-textfield col-sm-6 col-xs-12">
+						<input type="password" id="pass" name="userpassword" ng-model="userpassword" placeholder="{{'Password' | translate}}" ng-keyup="$event.keyCode == 13 ? loginuser('loginform') : null" required>
+						<label for="pass">{{'Password' | translate}}</label>
+					</div>
+				</div>
+
+				<div class="forgot_password">
+					<a href="javascript:void(0)" class="" ng-click="SentToforgot()">{{'Forgot_Password' | translate}} ?</a>
+				</div>
+
+				<div class="submit-btn col-sm-6 col-xs-12 text-center">
+					<a href="javascript:void(0)" ng-click="loginuser('loginform')">{{'Submit' | translate}}</a>
+				</div>
+			</form>
+			<div class="exist-account" ng-click="signup()">
+				<p class="">{{'Dont_Have_an_account' | translate}}? <a href="javascript:void(0)" class="sign-in-link"> {{'Sign_Up' | translate}} </a></p>
+			</div>
+		</div>
+	</div>
+	
+	
+
+<!--End of Pop up-->
+</div>

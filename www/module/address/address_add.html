@@ -1,0 +1,153 @@
+
+<div class="bg" ng-controller="address_add" ng-init="fetchcountry()">
+<style>
+	.login_form {
+		margin-top: 50px;
+    }
+</style>
+<header class="container-fluid nav-down">
+	<div class="row">
+		<nav class="navbar navbar-inverse">
+		  <div class="container no-padding">
+			<ul class="nav navbar-nav top_header text-center">
+			  <li class="menu_icon "><a href="javascript:void(0)"  ><img src="assets/img/icon/back.png" id="asdf" alt="menu icon"style="width: 13px;" ng-click="back()"/></a></li>
+				<li class="page_name left">
+					<a href="javascript:void(0)" class="text-left ">
+						<p>{{'My_Info' | translate}}</p>
+					</a>
+				</li>
+			  
+			</ul>
+			
+		  </div>
+		</nav>
+	
+	</div>
+	<!-- MOBILE-MENU-AREA END -->
+</header>
+<!-- END HEADER -->
+	
+<div class="container">
+		<div class="login_form">
+			<div class="info-container"> 
+				<div class="info-btn col-xs-6 text-center pl-10 pr-10">
+					<a href="javascript:void(0)" ng-click="toBasic()">{{'Basic_Info' | translate }}</a>
+				</div>
+				<div class="info-btn col-xs-6 text-center pl-10 pr-10 active">
+					<a href="javascript:void(0)">{{'Add_Address' | translate }}</a>
+				</div>
+			</div>
+			<div class="form_container pt-10">
+				<!--<form class="mui-form" name="addAddress" method="POST" novalidate>
+				 <!--  <div class="col-xs-12">
+						<div class="addr_heading mb-20">
+							<div class="radio col-sm-2 col-xs-4 no-padding">
+								<input id="home_addr" name="addr" type="radio" ng-model="address_type" name="address_type" value="home">
+								<label for="home_addr" class="radio-label">Home</label>
+							</div>
+							<div class="radio col-sm-2 col-xs-4 no-padding">
+								<input id="off_addr" name="addr" type="radio" ng-model="address_type" name="address_type" value="office">
+								<label for="off_addr" class="radio-label">Office</label>
+							</div>
+							<div class="radio col-sm-2 col-xs-4 no-padding">
+								<input id="other_addr" name="addr" type="radio" ng-model="address_type" name="address_type" value="other">
+								<label for="other_addr" class="radio-label">Other</label>
+							</div>
+						</div>
+					</div> -->
+					<div class="mui-select col-sm-6 col-xs-12">
+						<select id="country" name="country" disabled ng-model="country" ng-init="c.id = sessionStorage.country" ng-change="fetchcity()" required>
+							<option value="{{c.id}}" ng-repeat="c in Countries">{{c.name}}</option>
+						</select>
+						<label for="country">{{'Country' | translate }}</label>
+					</div>
+				  <div class="mui-select col-sm-6 col-xs-12">
+					<select id="city" name="city" ng-model="city" required>
+						<option value="">{{'Select_City' | translate }}</option>
+					  <option value="{{city.id}}" ng-repeat="city in Cities">{{city.name}}</option>
+					</select>
+					<label for="city">{{'City' | translate }}</label>
+				  </div>	
+				  <div class="mui-textfield col-sm-6 col-xs-12">
+					<input type="text"  id="address" name="address" ng-model="address" placeholder="{{'Address' | translate}}" required>
+					<label for="hno">{{'Address' | translate }}</label>
+				  </div>
+				  <!-- <div class="mui-textfield col-sm-6 col-xs-12">
+					<input type="text"  id="street" name="hno" model="hno" placeholder="Street Name" required>
+					<label for="street">Street</label> 
+				  
+				  <div class="mui-textfield col-sm-6 col-xs-12">
+					<input type="text"  id="landmark" name="landmark" ng-model="landmark" placeholder="{{'Landmark' | translate}}" required>
+					<label for="street">{{'Landmark' | translate }}</label>
+					</div>	-->			  
+				  <div class="mui-textfield col-sm-6 col-xs-12">
+					<input type="number"  id="zip" name="zip" ng-model="zip" placeholder="{{'Zip_Code' | translate}}" required>
+					<label for="street">{{'Zip_Code' | translate }}</label>
+				  </div>
+				  <div class="mui-textfield col-sm-6 col-xs-12">
+					<input type="text"  id="instruction" name="instruction" ng-model="instruction" placeholder="{{'Delivery_Instructions' | translate }}" required>
+					<label for="street">{{'Delivery_Instructions' | translate }}</label>
+				  </div>
+				  <div class="mui-textfield col-sm-6 col-xs-12">
+					<input type="number"  id="mobile" name="mobile" ng-model="mobile" placeholder="{{'Mobile_Number' | translate}}" required>
+					<label for="street">{{'Mobile_Number' | translate }}</label>
+				  </div>
+				  <div class="submit-btn col-sm-6 col-xs-12 text-center">
+					<a href="javascript:void(0)" ng-click="saveAddress('addAddress')">{{'Save' | translate }}</a>
+					</div>
+				</form>
+				 
+				</div>
+					
+			</div>
+		</div>
+		
+		<!--End of Pop up-->
+	<!--End of Pop up-->
+    <div>
+	<div class="bottom_navigation"  ng-init="loginlogout()">
+		
+		<div class="bottom_block" ng-init="selecthome()">
+			<a  ng-click="homego();" ng-if="color" style="background:{{background}}">
+			<img src="assets/img/google-icon/google-home.png">
+			<span style="display:block;"> {{'Home' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="category()"><img src="assets/img/google-icon/google-category.png">
+			<span style="display:block;">{{'Category' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="orderList()"><img src="assets/img/google-icon/google-list.png">
+			<span style="display:block;">{{'My_Orders' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="gotoAccount()"><img src="assets/img/google-icon/google-account.png">
+			<span style="display:block;"> {{'Account' | translate}}</span>
+			</a>
+		</div>
+	</div>
+	</div>
+
+	<!--End of Pop up-->
+<!--End of Pop up-->
+		</div>
+		
+
+		<!-- <script>
+		$(document).on('input','#mobile',function(){
+					var phone=$('#mobile').val();
+					if(phone.indexOf('0')==0){
+					alert('First number can not be 0');
+					$('#phone-number').val('');
+					return false;
+				}
+		});
+		</script> -->
+
+

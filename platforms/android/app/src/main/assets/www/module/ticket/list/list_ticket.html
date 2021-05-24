@@ -1,0 +1,188 @@
+<style type="text/css">
+    .products_wrapper.ticket_wrapper {
+        display: block;
+        padding: 10px 0;
+    }
+	.nav > li.cart_icon img {
+    width: 28px;
+   }  
+   .nav > li.cart_icon a:last-child {
+    width: 100%;
+    text-align: right;
+	font-size: 16px;
+    }
+	.view_tkt_btn > a, .view_tkt_btn > a > input{
+		width: 100%;
+		display: inline-block;
+	}
+	.view_tkt_btn > a > input{
+		border-radius: 3px;
+	}
+	a.track_btn{
+		text-transform: uppercase;
+		padding: 2px 10px;
+		margin-top: 0;
+	}
+	
+</style>
+<div ng-controller="list_ticket" ng-init="ticketlistData()">
+
+    <header class="container-fluid nav-down">
+        <div class="row">
+            <nav class="navbar navbar-inverse">
+                <div class="container no-padding">
+                    <ul class="nav navbar-nav top_header">
+                        <li class="menu_icon "><a href="javascript:void(0)"><img src="assets/img/icon/back.png" ng-click="back()" id="asdf" alt="menu icon"
+                                    style="width: 13px;" /></a></li>
+                        <li class="page_name left">
+                            <a href="javascript:void(0)" class="text-left ">
+                                <p>{{'Ticket_List' | translate}}</p>
+                            </a>
+                        </li>
+                        <li class="cart_icon">
+                          <a href="javascript:void(0)" ng-click="raise_ticket()">
+						     ADD
+						  </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+        <!-- MOBILE-MENU-AREA END -->
+    </header>
+    <!-- END HEADER -->
+
+    <!--  [PULSES] Sub categories content -->
+    <div class="container-fluid mt-45">
+        <div class="row">
+            <div class="">
+
+
+                <!-- ** Ticket Lists In process ** -->
+
+                <div class="no-padding item_lists_main" style="width:100%" ng-repeat="x in order_list" ng-if="order_list != ''">
+                    <div class="prodcut_main_container">
+                        <div class="products_wrapper ticket_wrapper">
+                            <div class="row padding_ticket">
+                                <div class="col-md-5 col-sm-5 col-xs-5 no-padding">
+                                    <h5>{{'Ticket_ID' | translate }}</h5>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-4 no-padding complaint_content">
+                                    <h5>#{{x.id}}</h5>
+                                </div>
+
+                               
+                                    <a href="" class="track_btn" style="background: #f8cb00;" ng-if="x.status == '0'">{{'Pending' | translate}}</a>
+                                    <a href="" class="track_btn" style="background-color: #5cb85c;" ng-if="x.status == '1'">{{'Resolved' | translate}}</a>
+                                
+
+                                <div class="col-md-3 col-sm-3 col-xs-3 no-padding">
+                                        <input type="button" ng-if="x.status == 0" class="btn btn-default btn_discounts ticket_process_btns ticket_in_process" name="" value="In Process">
+                                        <input type="button" ng-if="x.status == 1" class="btn btn-default btn_discounts ticket_process_btns ticket_resolved" name="" value="Resolved">
+                 
+                                </div>
+                            </div>
+                            <div class="row padding_ticket">
+                                <div class="col-md-5 col-sm-5 col-xs-5 no-padding">
+                                    <h5>{{'Order_Number' | translate}}</h5>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6 no-padding complaint_content">
+                                    <h5>{{x.order_id}}<span ng-if="x.order_distribution_id!='0'">->{{x.order_distribution_id}}</span></h5>
+                                </div>
+
+                            </div>
+                            <div class="row padding_ticket">
+                                <div class="col-md-5 col-sm-5 col-xs-5 no-padding">
+                                    <h5>{{'Complaint_Type' | translate}}</h5>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6 no-padding complaint_content">
+                                        <h5 ng-if="x.complaint_type == 1">Normal</h5>
+                                        <h5 ng-if="x.complaint_type == 2">Complex</h5>
+                                </div>
+
+                            </div>
+                            <div class="row padding_ticket">
+                                <div class="col-md-5 col-sm-5 col-xs-5 no-padding">
+                                    <h5>{{'Date_Time' | translate}}</h5>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6 no-padding complaint_content">
+                                    <h5>{{x.created_date.split(' ')[0] | date : 'dd-MM-yyyy'}} {{x.created_date.split(' ')[1]}}</h5>
+                                </div>
+
+                            </div>
+                            <!-- View button -->
+                            <div class="row padding_ticket">
+                                <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                    <div class="view_tkt_btn" ng-click="view_ticket(x.id)">
+                                        <a href="javascript:void(0)"><input type="button" class="btn btn-success" value="{{'View_Ticket' | translate}}"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  view button -->
+                        </div>
+                    </div>
+                </div>
+                <!-- ** !. Ticket Lists In process ** -->
+                <div  class="no_data_wrapper" ng-if="order_list == ''">
+                    <div class="">
+                        <img src="img/no_data_found.png">
+                        <h3 class="text-center">{{'No_Ticket_Found' | translate}}!!!</h3>
+                    </div>
+                <!-- ** !. My Order List ** -->
+            </div>
+                <!-- ** !. Ticket Lists Resolved ** -->
+
+            </div>
+        </div>
+    </div>
+    <!--  !. [PULSES] Sub categories content -->
+
+<!--End of Pop up-->
+   <!--End of Pop up-->
+ <div>
+	<div class="bottom_navigation"  ng-init="loginlogout()">
+		
+		<div class="bottom_block" ng-init="selecthome()">
+			<a  ng-click="homego();" ng-if="color" style="background:{{background}}">
+			<img src="assets/img/google-icon/google-home.png">
+			<span style="display:block;"> {{'Home' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="category()" style="background: rgba(81, 169, 0, 0.10196078431372549)"><img src="assets/img/google-icon/google-category.png">
+			<span style="display:block;">{{'Category' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="orderList()"><img src="assets/img/google-icon/google-list.png">
+			<span style="display:block;">{{'My_Orders' | translate}}</span>
+			</a>
+		</div>
+		
+			<div class="bottom_block">
+			<a ng-click="gotoAccount()"><img src="assets/img/google-icon/google-account.png">
+			<span style="display:block;"> {{'Account' | translate}}</span>
+			</a>
+		</div>
+	</div>
+	</div>
+
+<!--End of Pop up-->
+<!--End of Pop up-->
+
+    <script>
+
+
+        $(document).ready(function () {
+            $(".cart_icon a:last-child").click(function () {
+                //alert();
+                $(".bottom_header").slideToggle();
+                //$("#banner_slider").toggleClass("search-container")
+            });
+        });
+    </script>
+
+</div>

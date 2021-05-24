@@ -1,0 +1,141 @@
+<div class="bg" ng-controller="payment_mode" style="overflow:hidden;" ng-init="mycart()">
+<style>
+	.login_form {
+		margin-top: 40px;
+	}
+	.form_container {
+		padding: 0px 0;
+		overflow: hidden;
+		width: 100%;
+	}
+	.radio {
+		padding: 15px 10px;
+		background: #fff;
+		margin-top: 0;
+		display: flex;
+		align-items: center;
+	}
+	.radio > img{
+		width: 35px;
+		margin-right: 10px;
+	}
+	.pretty-div{
+		padding: 24px 13px;
+		background: #fff;
+	}
+	.pretty input:checked~.state.p-info-o label:before, .pretty.p-toggle .state.p-info-o label:before {
+		border-color: #ffffff;
+    }
+</style>
+    <header class="container-fluid nav-down">
+        <div class="row">
+          <nav class="navbar navbar-inverse">
+            <div class="container no-padding">
+            <ul class="nav navbar-nav top_header text-center">
+              <li class="menu_icon "><a href="javascript:void(0)"  ><img ng-click="back()" src="assets/img/icon/back.png" alt="menu icon"style="width: 13px;" /></a></li>
+              <li class="page_name left">
+                <a href="javascript:void(0)" class="text-left ">
+                  <p>{{'Payment_Options' | translate}}</p>
+                </a>
+              </li>
+              
+            </ul>
+            
+            </div>
+          </nav>
+        
+        </div>
+        <!-- MOBILE-MENU-AREA END -->
+      </header>
+      <!-- END HEADER -->
+        
+      <div class="">
+          <div class="login_form payment-section">
+            <div class="form_container">
+              <form class="" name="paymentoption" nonvalidate>
+                <div class="">
+                <!--<div class="addr_heading">-->
+                <div class="" ng-if="paybywallet !== '1'">
+					<div class="" ng-if="cod !== '1'">
+						
+						<div class="radio">
+							<img src="assets/img/google-icon/card.png">
+							<input id="radio-1" ng-model="form.payby" name="payby" type="radio" value="1"  required>
+							<label for="radio-1" class="radio-label">{{'Cash_On_Delivery' | translate}}</label>
+						</div>
+					</div>	
+				  
+                    <div class="radio">
+						<img src="assets/img/google-icon/add-card.png">
+						<input id="radio-2" ng-model="form.payby" name="payby" type="radio" value="2" required>
+						<label for="radio-2" class="radio-label">{{'Online_Payment' | translate}} </label>
+					</div>
+                </div>
+                  <!-- <div class="radio mb-20">
+                    <input id="checkbox1" ng-model="iswalletused" name="iswalletused" type="checkbox" value="1" required ng-change="selectwallet()">
+                    <label for="checkbox1" class="radio-label">{{'Wallet' | translate}}<span>({{'Amount' | translate}} - {{wallet_amount | number : 2}})</span></label>
+                    </div> -->
+					<div class="pretty-div">
+						<div class="pretty p-icon p-curve p-pulse">
+						  <input type="checkbox" id="checkbox1" name="iswalletused" ng-model="iswalletused" value="1" required ng-change="selectwallet()" >
+						  <div class="state p-info-o">
+							  <i class="icon  fa fa-check"></i>
+							  <label for="checkbox1" style="color: #757575 !important; font-size:16px">{{'Wallet' | translate}}<span style="font-size: 11px; color: #757575;">({{'Amount' | translate}} - {{wallet_amount | number : 2}})</span></label> 
+						  </div>
+						</div>
+					</div>
+                </div>
+				
+				<div class="cart_footer">
+					<p class="pay_d">{{'Payment_Details' | translate}}</p>
+					<!--<div class="after_coupon">
+						<div class="after_discount">Sub Total <span>AED 600.00</span></div>
+						<div class="after_cart">VAT<span>AED 20.83</span></div>
+					</div>-->
+						<div class="after_coupon" ng-if="coupon_discount">
+				<div class="after_discount" ng-if="!subtotalafterdiscount">{{'Sub_Total' | translate}} <span>{{currency}} {{subtotalbeforediscount | number : 2}}</span></div>
+				<div class="after_discount" ng-if="subtotalwithoutdiscount != ''">{{'Sub_Total' | translate}} <span>{{currency}} {{subtotalwithoutdiscount | number : 2}}</span></div>
+				<div class="after_discount" ng-if="coupon_discount">{{'Coupon_Discount' | translate}} <span>{{currency}} {{coupon_discount | number : 2}}</span></div>
+				<div class="after_discount" ng-if="subtotalafterdiscount">{{'Sub_Total_after_discount' | translate}} <span>{{currency}} {{subtotalafterdiscount | number : 2}}</span></div>
+				<div class="after_cart">{{'VAT' | translate}}<span>{{currency}} {{tax_amount | number : 2}}</span></div>
+			</div>
+			<div class="after_coupon" ng-if="!coupon_discount">
+				<div class="after_discount" ng-if="!subtotalafterdiscount">{{'Sub_Total' | translate}} <span>{{currency}} {{subtotalbeforediscount | number : 2}}</span></div>
+				<div class="after_cart">{{'VAT' | translate}}<span>{{currency}} {{tax_amount | number : 2}}</span></div>
+			</div>
+					<!-- {{cart_data}} -->
+			
+
+				</div>
+		
+				<div class="secure-payments">
+					<img src="assets/img/google-icon/verify.png">
+					<p>Safe & Secure Payments</p>
+				</div>
+				<div class="fixed_checkout">
+					<div href="javascript:void(0)">
+						<div class="checkout_container" ng-if="coupon_discount">
+							<p class=""><span>{{'Total' | translate}}</span>{{currency}} {{finalTotal | number : 2}}</p>
+							<a href="javascript:void(0)" ng-click="payment('paymentoption')"> {{'Pay_Now' | translate}}</a>
+						</div>
+					<div class="checkout_container" ng-if="!coupon_discount">
+					<p class=""><span>{{'Total' | translate}}</span>{{currency}} {{finalTotal | number : 2}}</p>
+					<a href="javascript:void(0)" ng-click="payment('paymentoption')"> {{'Pay_Now' | translate}}</a>
+				</div>
+					</div>
+				</div>
+                
+               
+                
+              </form>
+              
+      
+      
+      
+            </div>
+          </div>
+        </div>
+		<!--End of Pop up-->
+
+<!--End of Pop up-->
+</div>

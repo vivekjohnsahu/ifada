@@ -1,0 +1,69 @@
+<div class="bg" ng-controller="thankyou" ng-init="thanks()">
+        <div class="thank_you_main">	
+                <div class="tk_text mb-35"> 
+                     <div class="tk_icon"><img src="assets/img/thank_you_icon.png"></div>
+                     <div class="text_div">
+                         <h3>{{'Thank_You' | translate}}</h3>
+                         <P>{{'For_Shooping_With_Us' | translate}}</P> 
+                     </div>
+                </div>
+                <div class="tk_bottom">
+                    <div class="tk_img"><img src="assets/img/thank_you.png"></div>
+                    <div class="tk_order">
+                        <h5>{{'Your_Order_has_been_confirmed' | translate}}</h5>
+                        <h5>{{'Your_Order_No' | translate}}. <span>{{order_id}}</span></h5>
+                    </div>
+                
+                    <div class="tk_bg">
+                        <div class="tk_hungry"><h5>{{'Still_Hungry_For_Shopping' | translate}} ?</h5></div>
+                        <div class="cont_shop"><a href="javascript:void(0)" ng-click="home()" class="">{{'Shop_Now' | translate}}</a></div>
+                    </div>
+                    <div class="see_order"><a href="javascript:void(0)" ng-click="orders()">{{'View_Order' | translate}}</a></div>
+                </div>
+            </div>
+<!--End of Pop up-->
+ <!--End of Pop up-->
+  <div>
+	<div class="bottom_navigation"  ng-init="loginlogout()">
+		
+		<div class="bottom_block" ng-init="selecthome()">
+			<a  ng-click="homego();" ng-if="color" style="background:{{background}}">
+			<img src="assets/img/google-icon/google-home.png">
+			<span style="display:block;"> {{'Home' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="category()"><img src="assets/img/google-icon/google-category.png">
+			<span style="display:block;">{{'Category' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="orderList()"><img src="assets/img/google-icon/google-list.png">
+			<span style="display:block;">{{'My_Orders' | translate}}</span>
+			</a>
+		</div>
+		
+			<div class="bottom_block">
+			<a ng-click="gotoAccount()"><img src="assets/img/google-icon/google-account.png">
+			<span style="display:block;"> {{'Account' | translate}}</span>
+			</a>
+		</div>
+	</div>
+	</div>
+
+<!--End of Pop up-->
+
+<!--End of Pop up-->			
+            <script>
+            
+                $('.digit1 input').keyup(function(){
+                    if($(this).val().length==$(this).attr("maxlength")){
+                        $(this).next().focus();
+                    }
+                });
+            
+            </script>	
+
+</div>

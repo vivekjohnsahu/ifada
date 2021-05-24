@@ -1,0 +1,118 @@
+<div ng-controller="add_ticket" >
+<style>
+	.form_container {
+		padding: 0px 0 25px 0;
+	}
+	.submit_2btn a {
+    width: 100%;
+    border-radius: 3px;
+    }
+</style>
+    <header class="container-fluid nav-down">
+        <div class="row">
+            <nav class="navbar navbar-inverse">
+                <div class="container no-padding">
+                    <ul class="nav navbar-nav top_header text-center">
+                        <li class="menu_icon "><a href="javascript:void(0)"><img src="assets/img/icon/back.png"
+                            ng-click="back()" alt="menu icon" style="width: 13px;" /></a></li>
+                        <li class="page_name">
+                            <a href="javascript:void(0)" class="text-left text-center">
+                                <p>{{'Raise_Ticket' | translate}}</p>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </nav>
+
+        </div>
+        <!-- MOBILE-MENU-AREA END -->
+    </header>
+    <!-- END HEADER -->
+
+
+    <div class="container" ng-init="get_all_order()">
+        <div class="login_form">
+            <div class="form_container">
+                <form method="post" class="mui-form" name="loginform" novalidate>
+                    <div class="mui-select col-sm-6 col-xs-12">
+                        <select name="getorder" ng-model="getorder" id="order" ng-change="get_orderdist(getorder);"  required>
+                            <option value="">{{'Select_Order_ID' | translate}}</option>
+                            <option ng-repeat="x in getorders" value="{{x.ORDER_IDS}}">{{x.ORDER_IDS}}</option>
+                        </select>
+                        <label for="order">{{'Order_ID' | translate}}*</label>
+                    </div>
+					<div class="mui-select col-sm-6 col-xs-12">
+                        <select name="getorder_dist" ng-model="getorder_dist" id="getorder_dist" required>
+                            <option value="">{{'Select_Order_ID' | translate}}</option>
+                            <option ng-repeat="y in getorders_dist" value="{{y.id}}">{{y.order_id}}->{{y.id}} </option>
+                        </select>
+                        <label for="order">{{'Order_Distribution' | translate}}*</label>
+                    </div>
+                    <div class="mui-select  col-sm-6 col-xs-12">
+                        <select name="getcomplainttype" ng-model="getcomplainttype" id="order" required>
+                            <option value="">{{'Select_Complaint_Type' | translate}}</option>
+                            <option value="1">{{'Normal' | translate}}</option>
+                            <option value="2">{{'Major' | translate}}</option>
+                        </select>
+                        <label for="complaint">{{'Complaint_Type' | translate}}*</label>  
+                    </div>
+                    <div class="mui-textfield contactmessage  col-sm-6 col-xs-12">
+                        <textarea name="des" ng-model="des" rows="2" placeholder="{{'Enter_Description' | translate}}" required></textarea>
+                        <label>{{'Description' | translate}}*</label>
+                    </div>
+
+                    <div class="submit_2btn col-xs-6 text-center" ng-click="addticket('loginform')">
+                        <a href="javascript:void(0)" >{{'Save' | translate}}</a>
+                    </div>
+                    <div class="submit_2btn col-xs-6 text-center" ng-click="back()">
+                        <a href="javascript:void(0)">{{'Cancel' | translate}}</a>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--  END Banner SLIDER -->
+	
+<!--End of Pop up-->
+   <!--End of Pop up-->
+ <div>
+	<div class="bottom_navigation"  ng-init="loginlogout()">
+		
+		<div class="bottom_block" ng-init="selecthome()">
+			<a  ng-click="homego();" ng-if="color" style="background:{{background}}">
+			<img src="assets/img/google-icon/google-home.png">
+			<span style="display:block;"> {{'Home' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="category()" style="background: rgba(81, 169, 0, 0.10196078431372549)"><img src="assets/img/google-icon/google-category.png">
+			<span style="display:block;">{{'Category' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="orderList()"><img src="assets/img/google-icon/google-list.png">
+			<span style="display:block;">{{'My_Orders' | translate}}</span>
+			</a>
+		</div>
+		
+			<div class="bottom_block">
+			<a ng-click="gotoAccount()"><img src="assets/img/google-icon/google-account.png">
+			<span style="display:block;"> {{'Account' | translate}}</span>
+			</a>
+		</div>
+	</div>
+	</div>
+
+<!--End of Pop up-->
+
+<!--End of Pop up-->	
+
+
+
+</div>

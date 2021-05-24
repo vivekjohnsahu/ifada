@@ -1,0 +1,203 @@
+<style type="text/css">
+    .products_wrapper.ticket_wrapper {
+        display: block;
+        padding: 15px;
+    }
+	a.track_btn{
+		margin-top: -10px;
+		padding: 2px 10px;
+		text-transform: uppercase;
+	}
+</style>
+<div ng-controller="view_ticket" ng-init="ticketviewData()">
+    <header class="container-fluid nav-down">
+        <div class="row">
+            <nav class="navbar navbar-inverse">
+                <div class="container no-padding">
+                    <ul class="nav navbar-nav top_header">
+                        <li class="menu_icon "><a href="javascript:void(0)"><img ng-click="back()" src="assets/img/icon/back.png"
+                                    id="asdf" alt="menu icon" style="width: 13px;" /></a></li>
+                        <li class="page_name left">
+                            <a href="javascript:void(0)" class="text-left ">
+                                <p>{{'View_Ticket' | translate }}</p>
+                            </a>
+                        </li>
+                        <!-- <li class="cart_icon">
+                            <a href="javascript:void(0)"><img src="assets/img/icon/cart_icon.png" alt="cart icon" />
+                                <span class="badge">14</span>
+                            </a>
+                            <a href="javascript:void(0)"><img src="assets/img/icon/search_icon.png" alt="search icon" /></a>
+                        </li> -->
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+        <!-- MOBILE-MENU-AREA END -->
+    </header>
+    <!-- END HEADER -->
+
+    <!--  [PULSES] Sub categories content -->
+    <div class="container-fluid mt-45" ng-init="ticket_logs()">
+        <div class="row">
+            <div class="">
+
+
+                <!-- ** Ticket Lists In process ** -->
+
+                <div class="no-padding item_lists_main tickets_view_details" style="width:100%">
+                    <div class="prodcut_main_container">
+                        <div class="products_wrapper ticket_wrapper">
+                            <div class="tickets_date">
+                                <div class="row padding_ticket">
+                                    <div class="col-md-5 col-sm-5 col-xs-5 no-padding">
+                                        <h5>{{'Ticket_ID' | translate }}</h5>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4 no-padding complaint_content">
+                                        <h5>#{{view_ticket.id}}</h5>
+                                    </div>
+
+                                    <a href="" class="track_btn" style="background: #f8cb00;" ng-if="view_ticket.status == '0'">{{'Pending' | translate}}</a>
+                                    <a href="" class="track_btn" style="background-color: #5cb85c;" ng-if="view_ticket.status == '1'">{{'Resolved' | translate}}</a>
+                                
+                                    <div class="col-md-3 col-sm-3 col-xs-3 no-padding">
+                                        <input type="button" ng-if="view_ticket.status == 0" class="btn btn-default btn_discounts ticket_process_btns ticket_in_process"
+                                            name="" value="In Process">
+                                        <input type="button" ng-if="view_ticket.status == 1" class="btn btn-default btn_discounts ticket_process_btns ticket_resolved"
+                                            name="" value="Resolved">
+                                    </div>
+                                </div>
+                                <div class="row padding_ticket">
+                                    <div class="col-md-5 col-sm-5 col-xs-5 no-padding">
+                                        <h5>{{'Date_Time' | translate }}</h5>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6 no-padding complaint_content">
+                                        <h5>{{view_ticket.created_date.split(' ')[0] | date : 'dd-MM-yyyy'}} {{view_ticket.created_date.split(' ')[1]}}</h5>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="tickets_deatils">
+                                <div class="row padding_ticket">
+                                    <div class="col-md-5 col-sm-5 col-xs-5 no-padding">
+                                        <h5>{{'Order_Number' | translate}}</h5>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6 no-padding complaint_content">
+                                        <h5>{{view_ticket.order_id}}<span ng-if="view_ticket.order_distribution_id!='0'">->{{view_ticket.order_distribution_id}}</span></h5>
+                                    </div>
+
+                                </div>
+                                <div class="row padding_ticket">
+                                    <div class="col-md-5 col-sm-5 col-xs-5 no-padding">
+                                        <h5>{{'Complaint_Type' | translate}}</h5>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6 no-padding complaint_content">
+                                        <h5 ng-if="view_ticket.complaint_type == 1">{{'Normal' | translate}}</h5>
+                                        <h5 ng-if="view_ticket.complaint_type == 2">{{'Complex' | translate}}</h5>
+                                    </div>
+                                </div>
+                                <div class="row padding_ticket">
+                                    <div class="col-md-5 col-sm-5 col-xs-5 no-padding">
+                                        <h5>{{'Description' | translate}}</h5>
+                                    </div>
+                                    <div class="col-md-7 col-sm-7 col-xs-7 no-padding complaint_content">
+                                        <h5 style="text-align: justify; line-height: 1.4em">{{view_ticket.description}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- ** !. Ticket Lists In process ** -->
+
+                <!-- TICKETS Q/A -->
+                <div class="row padding products_wrapper ticket_wrapper" >
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 padding_container">
+                        <h4 class="ticket_logs_heading">{{'Ticket_Logs' | translate}} <i ng-click="ticket_logs()" class="fa fa-refresh" aria-hidden="true"></i></h4>
+                    </div>
+                    <div class="row padding_container">
+                        <div class="col-md-12 col-xs-12 col-sm-12 ticket_wrapper chat_window">
+                            <div class="chat_window_start">
+                                <ul class="chat_start">
+                                    <span ng-repeat="x in ticket_logs_details">
+
+                                        <li class="chat_thread by_support" ng-if="x.sender != user_ids">
+                                            <h5>{{x.SENDER_NAME | ucwords}}</h5>
+                                            <p class="chat_desc">{{x.content | ucwords}}</p>
+                                            <small class="chat_time">{{x.created_date.split(' ')[0] | date : 'dd-MM-yyyy'}} {{x.created_date.split(' ')[1]}}</small>
+
+                                        </li>
+                                        <li class="chat_thread by_user" ng-if="x.sender == user_ids">
+                                            <h5>{{x.SENDER_NAME | ucwords}}</h5>
+                                            <p class="chat_desc">{{x.content | ucwords}}</p>
+                                            <small class="chat_time">{{x.created_date.split(' ')[0] | date : 'dd-MM-yyyy'}} {{x.created_date.split(' ')[1]}}</small>
+
+                                        </li>
+
+
+                                    </span>
+
+                                </ul>
+                                <form method="post"  name="loginform" novalidate>
+
+                                    <div class="send_box">
+                                        <input type="text" name="customer_reps" ng-model="customer_rep" class="reply_input"
+                                            placeholder="Reply....">
+                                        <button class="sned_chat_btn" ng-click="replyaatticket('loginform')">
+                                            <i class="fa fa-paper-plane send_chect_icon"
+                                                aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- !. TICKETS Q/A -->
+
+
+            </div>
+        </div>
+    </div>
+    <!--  !. [PULSES] Sub categories content -->
+
+   <!--End of Pop up-->
+ <div>
+	<div class="bottom_navigation"  ng-init="loginlogout()">
+		
+		<div class="bottom_block" ng-init="selecthome()">
+			<a  ng-click="homego();" ng-if="color" style="background:{{background}}">
+			<img src="assets/img/google-icon/google-home.png">
+			<span style="display:block;"> {{'Home' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="category()" style="background: rgba(81, 169, 0, 0.10196078431372549)"><img src="assets/img/google-icon/google-category.png">
+			<span style="display:block;">{{'Category' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="orderList()"><img src="assets/img/google-icon/google-list.png">
+			<span style="display:block;">{{'My_Orders' | translate}}</span>
+			</a>
+		</div>
+		
+			<div class="bottom_block">
+			<a ng-click="gotoAccount()"><img src="assets/img/google-icon/google-account.png">
+			<span style="display:block;"> {{'Account' | translate}}</span>
+			</a>
+		</div>
+	</div>
+	</div>
+
+<!--End of Pop up-->
+
+<!--End of Pop up-->
+   
+
+
+</div>

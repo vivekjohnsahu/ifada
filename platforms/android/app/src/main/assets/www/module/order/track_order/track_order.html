@@ -1,0 +1,241 @@
+<div ng-controller="track_order" ng-init="trackorderDetail()" >
+
+    <header class="container-fluid nav-down">
+        <div class="row">
+            <nav class="navbar navbar-inverse">
+              <div class="container no-padding">
+                <ul class="nav navbar-nav top_header">
+                  <li class="menu_icon "><a href="javascript:void(0)"  ><img ng-click="back()" src="assets/img/icon/back.png" alt="menu icon"style="width: 13px;" /></a></li>
+                    <li class="page_name left">
+                        <a href="javascript:void(0)" class="text-left ">
+                            <p>{{'Track_Order ' | translate }}</p>
+                        </a>
+                    </li>
+                 <!--  <li class="cart_icon">
+                      <a href="javascript:void(0)"><img ng-click="cart()" src="assets/img/icon/cart_icon.png" alt="cart icon"  />
+                        
+                      </a>
+                      <a href="javascript:void(0)"><img src="assets/img/icon/search_icon.png" alt="search icon" /></a>
+                  </li> -->
+                </ul>
+              </div>
+            </nav>
+        
+        </div>
+        <!-- MOBILE-MENU-AREA END -->
+    </header>
+    <!-- END HEADER -->
+    
+    <!--  [PULSES] Sub categories content -->
+        <div class="container-fluid mt-45">
+            <div class="row">
+                <div class="">
+                    <!-- ** Buttons** -->
+                   <!--  <div class="pulses_buttons  tracking_main_container">
+    
+                        <h5 class="tracking_heading">Tracking No.</h5><h5 class="tracking_number">AWB12349870978</h5>
+                        <input type="button" class="btn btn-default tracking_btn ticket_process_btns ticket_processed" name="" value="Processed">
+                        
+                    </div> -->
+                    <!-- ** !. Buttons ** -->
+                    
+                    <!-- ** Product Lists ** -->
+                    
+                    <div class="">
+                        <!-- ** bars ** -->
+                        <div class="prodcut_main_container tracking_barss">
+                            <div class="order_tacking_bar">
+                           
+                                <ol class="progtrckr" data-progtrckr-steps="5">
+                                    <li class="progtrckr-todo inprocessed" >
+                                        <span class="span_date_tarck">{{trackorder_location.created_date.split(' ')[0] | date : 'dd-MM-yyyy'}},</span>
+										<span class="span_time_track">{{trackorder_location.created_date.split(' ')[1]}}</span>
+                                        <span class="pending_check"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                        <span class="span_text"><img class="bar_icons" src="assets/img/order_placed.png">{{'Order_Placed' | translate}}</span>
+                                    </li>
+                                      <li class="progtrckr-todo inprocessed" ng-repeat="x in orderhistory">
+                                        <span class="span_date_tarck">{{x.created_date.split(' ')[0] | date : 'dd-MM-yyyy'}},</span><span class="span_time_track"> {{x.created_date.split(' ')[1] }}</span>
+                                        <span class="pending_check"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                           <span class="span_text">
+                                            <img ng-if="x.order_status == '2'" class="bar_icons" src="assets/img/order_confirmed.png">
+                                            <img ng-if="x.order_status == '3'" class="bar_icons" src="assets/img/order_processed.png">
+                                            <img ng-if="x.order_status == '4'" class="bar_icons" src="assets/img/out_for_delivery.png">
+                                            <img ng-if="x.order_status == '5'" class="bar_icons" src="assets/img/delivered_icon.png">
+                                            <img ng-if="x.order_status == '6'" class="bar_icons" src="assets/img/cancel_icon.png">
+                                            <img ng-if="x.order_status == '7'" class="bar_icons" src="assets/img/reject_icon.png">
+                                            <img ng-if="x.order_status == '9'" class="bar_icons" src="assets/img/not_contacted_icon_app.png">
+                                            <img ng-if="x.order_status == '8'" class="bar_icons" src="assets/img/reschedule_icon.png">
+                                            {{x.ORDER_TYPE}}</span>
+											
+
+											
+                                    </li>
+									  <li ng-if="orderhistory!='0' &&  payment_status =='2' || payment_status =='3'"  class="progtrckr-todo inprocessed">
+									         <span class="span_date_tarck">{{created_date.split(' ')[0] | date : 'dd-MM-yyyy'}},</span><span class="span_time_track"> {{created_date.split(' ')[1] }}</span>
+									          <span class="pending_check"><i class="fa fa-check" aria-hidden="true"></i></span>
+											 <span ng-if="neworder_status == '1' && payment_status =='2'" class="span_text">
+                                               <img  class="bar_icons" src="assets/img/order-failed.png"> {{'Payment_Failed' | translate }}	 </span>
+               
+										        <span ng-if="neworder_status == '1' && payment_status =='3'" class="span_text">
+                                                 <img  class="bar_icons" src="assets/img/order_cancel.png">
+                                                  {{'Payment_Cancelled' | translate }}	</span>
+									  </li>		 
+                                   <!-- <li ng-if="trackorder_location.status != '2' && trackorder_location.status != '3' && trackorder_location.status != '4' && trackorder_location.status != '5'" class="progtrckr-todo " >
+                                      <span class="span_date_tarck">27 Oct 2018</span>
+                                      <span class="pending_check"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                      <span class="span_text"><img class="bar_icons" src="assets/img/order_confirmed.png">Order Confirmed</span>
+                                  </li>
+                                   <li ng-if ="trackorder_location.status == '3' || trackorder_location.status == '4' || trackorder_location.status == '5'" class="progtrckr-todo inprocessed">
+                                       <span class="span_date_tarck">28 Oct 2018</span>
+                                       <span class="pending_check"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                       <span class="span_text"><img class="bar_icons" src="assets/img/order_processed.png">Boy Assigned</span>
+                                   </li>
+                                   <li  ng-if ="trackorder_location.status != '3' && trackorder_location.status != '4' && trackorder_location.status != '5'" class="progtrckr-todo">
+                                      <span class="span_date_tarck">28 Oct 2018</span>
+                                      <span class="pending_check"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                      <span class="span_text"><img class="bar_icons" src="assets/img/order_processed.png">Boy Assigned</span>
+                                  </li>
+                                  <li  ng-if=" trackorder_location.status == '4' || trackorder_location.status == '5'"  class="progtrckr-todo inprocessed">
+                                      <span class="span_date_tarck">29 Oct 2018</span>
+                                      <span class="pending_check"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                      <span class="span_text"><img class="bar_icons" src="assets/img/out_for_delivery.png">Out for Delivery</span>
+                                  </li>
+                                  <li  ng-if=" trackorder_location.status != '4' && trackorder_location.status != '5'"  class="progtrckr-todo ">
+                                      <span class="span_date_tarck">29 Oct 2018</span>
+                                      <span class="pending_check"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                      <span class="span_text"><img class="bar_icons" src="assets/img/out_for_delivery.png">Out for Delivery</span>
+                                  </li>
+                                  <li ng-if="trackorder_location.status == '5'" class="progtrckr-todo inprocessed">
+                                      <span class="span_date_tarck">29 Oct 2018</span>
+                                      <span class="pending_check"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                      <span class="span_text"><img class="bar_icons" src="assets/img/delivered_icon.png">Delivered</span>
+                                  </li>
+                                  <li ng-if="trackorder_location.status != '5'" class="progtrckr-todo ">
+                                      <span class="span_date_tarck">29 Oct 2018</span>
+                                      <span class="pending_check"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                      <span class="span_text"><img class="bar_icons" src="assets/img/delivered_icon.png">Delivered</span>
+                                  </li>   -->
+                                  
+                              </ol>
+                             <!--  <ol class="progtrckr">
+                                <li ng-if="trackorder_location.status == '6'" class="progtrckr-todo inprocessed">
+                                    <span class="span_date_tarck">29 Oct 2018</span>
+                                    <span class="pending_check"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                    <span class="span_text"><img class="bar_icons" src="assets/img/cancel_icon.png">Cancelled</span>
+                                </li>
+                              
+                              
+                                <li  ng-if="trackorder_location.status == '7'" class="progtrckr-todo inprocessed">
+                                    <span class="span_date_tarck">29 Oct 2018</span>
+                                    <span class="pending_check"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                    <span class="span_text"><img class="bar_icons" src="assets/img/reject_icon.png">Rejected</span>
+                                </li>
+                              </ol> -->
+
+
+
+                            </div>
+                        </div>
+                        <!-- ** !. bars ** -->
+                        <!-- ** more details ** -->
+                        <div class="tracking_more_details">
+                            <div ng-if="trackorder_location.delivery_date != '0000-00-00 00:00:00'" class="estimate_deliaver">
+                                <h5>{{'Estimated_Delivery_Time ' | translate }}	</h5>
+                                <p>{{trackorder_location.delivery_date.split(' ')[0] | date : 'dd-MM-yyyy'}}</p>
+                            </div>
+                            <div class="estimate_deliaver">
+                                <h5>{{'Billing_Address' | translate }}</h5>
+                                <!-- <h5>
+                                        {{orderinfo.landmark + " , " + orderinfo.address}}<br />
+                                        {{orderinfo.CITY_NAME + " , " + " " + orderinfo.COUNTRY_NAME}}<br />
+                                        {{orderinfo.zipcode}}<br />
+                                    </h5> -->
+                                 <p>{{orderinfo.landmark}}</p>
+                                <p>{{orderinfo.location}}</p>
+                                <p>{{orderinfo.zipcode}}</p> 
+                            </div>
+                            <div class="more_methods_opt">
+                                <div class="more_methods_opt_line">
+                                    <h5 class="opt_line_head">{{'Payment' | translate}}</h5>
+                                    <p>:</p>
+                                    <h5 class="opt_line_text" ng-if="orderinfo.payment_type == '1'">COD<span ng-if="orderinfo.wallet_used_amount !='0.00'"> + Wallet</span></h5>
+                                    <h5 class="opt_line_text" ng-if="orderinfo.payment_type == '2'">Online<span ng-if="orderinfo.wallet_used_amount !='0.00'"> + Wallet</span></h5>
+                                    <h5 class="opt_line_text" ng-if="orderinfo.payment_type == ''">Wallet</h5>
+                                </div>
+                                <div class="more_methods_opt_line">
+                                    <h5 class="opt_line_head">{{'Ordered_On' | translate}}</h5>
+                                    <p>:</p>
+                                    <h5 class="opt_line_text">{{orderinfo.order_on.split(' ')[0] | date : 'dd-MM-yyyy'}}</h5>
+                                </div>
+                                <div class="more_methods_opt_line">
+                                    <h5 class="opt_line_head">{{'Deliver_To' | translate}}</h5>
+                                    <p>:</p>
+                                    <h5 class="opt_line_text">{{orderinfo.address}}</h5>
+                                </div>
+                                <div class="more_methods_opt_line">
+                                    <h5 class="opt_line_head">{{'Mobile_Number' | translate}}</h5>
+                                    <p>:</p>
+                                    <h5 class="opt_line_text">{{orderinfo.mobile_number}}</h5>
+                                </div>
+                                    
+                            </div>
+                        </div>
+                        <!-- ** more details ** -->
+                    </div>
+    
+                    <!-- ** !. Product Lists ** -->
+                    
+                </div>
+            </div>
+        </div>
+    <!--  !. [PULSES] Sub categories content -->
+        
+<!--End of Pop up-->
+<!--End of Pop up-->
+	<!--End of Pop up-->
+    <div>
+	<div class="bottom_navigation"  ng-init="loginlogout()">
+		
+		<div class="bottom_block" ng-init="selecthome()">
+			<a  ng-click="homego();" ng-if="color" style="background:{{background}}">
+			<img src="assets/img/google-icon/google-home.png">
+			<span style="display:block;"> {{'Home' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="category()"><img src="assets/img/google-icon/google-category.png">
+			<span style="display:block;">{{'Category' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="orderList()"><img src="assets/img/google-icon/google-list.png">
+			<span style="display:block;">{{'My_Orders' | translate}}</span>
+			</a>
+		</div>
+		
+			<div class="bottom_block">
+			<a ng-click="gotoAccount()"><img src="assets/img/google-icon/google-account.png">
+			<span style="display:block;"> {{'Account' | translate}}</span>
+			</a>
+		</div>
+	</div>
+	</div>
+
+	<!--End of Pop up-->
+<!--End of Pop up-->        
+    <script>
+    
+        
+    $(document).ready(function(){
+        $(".cart_icon a:last-child").click(function(){
+            //alert();
+            $(".bottom_header").slideToggle();
+            //$("#banner_slider").toggleClass("search-container")
+        });	
+    });
+        </script>
+
+       
+</div>

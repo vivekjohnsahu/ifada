@@ -1,0 +1,56 @@
+<div ng-controller="cms" ng-init="get_cms_data()">
+<header>
+    <div class="mob-lg-12 header-dark">
+        <div class="mob-display-table">
+            <div class="mob-display-cell" ng-click="go_back()"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
+            <div class="mob-display-cell"> {{cms_data.title}} </div>
+        </div>
+    </div>
+</header>
+<div class="relative-search-list-bg" style="margin-top:0px;">   
+    <div class="relative-top-heading-bg">
+        <span class="relative-top-heading-bg-left">  </span>
+         {{cms_data.content}}
+        <!--<span class="relative-top-heading-bg-right"> View All </span>-->
+    </div>
+    <div class="relative-search-ul">
+       
+    </div>
+</div>
+<!--End of Pop up-->
+ <!--End of Pop up-->
+   <div>
+	<div class="bottom_navigation"  ng-init="loginlogout()">
+		<div ng-if="loggbyno == 'no'" class="bottom_block">
+			<a ng-click="loginbynoti()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+			<span style="display:block;">{{'Inbox' | translate}}</span>
+			</a>
+		</div>
+		
+		<div ng-if="loggbyno == 'yes'" class="bottom_block" ng-init="get_notification()">
+			<a ng-click="notification()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg><span class="notifi-count" ng-if="countnotification">{{countnotification}}</span><span class="notifi-count" ng-if="countnotification =='0'">{{countnotification}}</span>
+			<span style="display:block;">{{'Inbox' | translate}}</span>
+			</a>
+		</div>
+		<div class="bottom_block" ng-init="selecthome()">
+			<a  ng-click="homego();" ng-if="color" style="color:{{color}};background:{{background}}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="bevel" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+			<span style="display:block;"> {{'Home' | translate}}</span>
+			</a>
+		</div>
+		<div class="bottom_block">
+			<a ng-click="gotoAccount()"><img src="assets/img/google-icon/google-account.png">
+			<span style="display:block;"> {{'Account' | translate}}</span>
+			</a>
+		</div>
+	</div>
+	</div>
+
+<!--End of Pop up-->
+
+<!--End of Pop up-->
+</div>
+
+
+<!-- end search -->
+
+ 

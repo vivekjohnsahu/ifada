@@ -1,0 +1,141 @@
+<style>
+	.nav > li.page_name {
+		position: absolute;
+		height: 45px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		left: 0;
+		top: 0;
+		padding-bottom: 10px;
+	}
+	.navbar-inverse .navbar-nav>li>a {
+		display: flex;
+		align-items: center;
+	}
+	.navbar-inverse .navbar-nav>li>a>p {
+		padding: 0 0px 0 10px;
+		text-transform: capitalize;
+	}
+</style>
+
+<div ng-controller="accountpage">  
+	<div class="account-info">
+	
+	
+		<div class="account-header" ng-if="loggedin">
+			<div class="account-txt">
+				<h3>Hi {{fullName}}</h3>
+				<p>{{email}}</p>
+				<p>{{country_code}}{{mobile_number}}</p>
+			</div>
+			<div class="acc-img">
+			   <div class="img-block" ng-if="profileImage != ''"><img src="{{profileImage}}"
+				alt="" /> </div>
+				<div class="img-block" ng-if="profileImage == ''">
+					<img src="assets/img/google-icon/google-account.png">
+				</div>
+			</div>
+			<div class="account-edit">
+				<a ng-click="profile()"> {{'Edit_Account' | translate}}</a>
+			</div>
+		</div>
+
+
+		<div class="account-header before-login" ng-if="!loggedin">
+			<h3>{{'My_Account' | translate}}</h3>
+			<p> {{'Sign_Up_or_Login_To_shop_or_manage_orders' | translate}}</p>
+			<a ng-click="register()">{{'Signup' | translate}}</a>
+			<p class="mt-5 mb-5"> {{'OR' | translate}}</p>
+			<a style="background:#fff;color:#6c9e3d" ng-click="login()"> {{'Login' | translate}}</a>
+		</div>
+		
+	</div>
+	
+	<div class="external-links">
+		<ul>
+			<li style="background:#fff" ng-if="loggedin" ng-click="wallet()">
+				<img src="assets/img/google-icon/wallet.png">
+				<p> {{'My_Wallet' | translate}}</p>
+				<img src="assets/img/google-icon/next.png">
+				<span class="line"></span>
+			</li>
+			<li style="background:#fff" ng-if="loggedin" ng-click="my_address()">
+				<img src="assets/img/google-icon/address.png">
+				<p> {{'My_Addresses' | translate}}</p>
+				<img src="assets/img/google-icon/next.png">
+				<span class="line"></span>
+			</li>
+			<!--<li style="background:#fff" ng-if="loggedin">
+				<img src="assets/img/google-icon/payment.png">
+				<p>Payments</p>
+				<img src="assets/img/google-icon/next.png">
+				<span class="line"></span>
+			</li>-->
+			<li style="background:#fff" ng-if="loggedin" ng-click="myorder()">
+				<img src="assets/img/google-icon/favourite.png">
+				<p> {{'Shopping_List' | translate}}</p>
+				<img src="assets/img/google-icon/next.png">
+				<span class="line"></span>
+			</li style="background:#fff">
+			<!--<li>
+				<img src="assets/img/google-icon/help.png">
+				<p>Help Center</p>
+				<img src="assets/img/google-icon/next.png">
+				<span class="line"></span>
+			</li>-->
+			<li ng-click="switch_country()">
+				<img src="assets/img/google-icon/location-black.png" >
+				<p> {{'Area' | translate}} <span>{{country_name}}</span></p>
+				<img src="assets/img/google-icon/next.png">
+				<span class="line"></span>
+			</li>
+			<li ng-click="language()">
+				<img src="assets/img/google-icon/language.png" >
+				<p> {{'Language' | translate}} <span>{{languages}}</span></p>
+				<img src="assets/img/google-icon/next.png">
+				<span class="line"></span>
+			</li>
+			<li  ng-click="legal()">
+				<img src="assets/img/google-icon/information.png">
+				<p> {{'Legal' | translate}}</p>
+				<img src="assets/img/google-icon/next.png">
+				<span class="line"></span>
+			</li>
+		</ul>
+	</div>	
+
+<!--End of Pop up-->
+<div>
+	<div class="bottom_navigation"  ng-init="loginlogout()">
+		
+		<div class="bottom_block" ng-init="selecthome()">
+			<a  ng-click="homego();" ng-if="color" style="background:{{background}}">
+			<img src="assets/img/google-icon/google-home.png">
+			<span style="display:block;"> {{'Home' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="category()"><img src="assets/img/google-icon/google-category.png">
+			<span style="display:block;">{{'Category' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="orderList()"><img src="assets/img/google-icon/google-list.png">
+			<span style="display:block;">{{'My_Orders' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a style="background: rgba(81, 169, 0, 0.10196078431372549);"><img src="assets/img/google-icon/google-account.png">
+			<span style="display:block;"> {{'Account' | translate}}</span>
+			</a>
+		</div>
+	</div>
+	</div>
+
+	<!--End of Pop up-->
+</div>

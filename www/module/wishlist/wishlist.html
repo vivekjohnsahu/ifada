@@ -1,0 +1,143 @@
+<div ng-controller="wishlist" ng-init="whiteListData()">
+
+	<header class="container-fluid nav-down">
+		<div class="row">
+			<nav class="navbar navbar-inverse">
+				<div class="container no-padding">
+					<ul class="nav navbar-nav top_header">
+						<li class="menu_icon "><a href="javascript:void(0)"><img ng-click="back()" src="assets/img/icon/back.png" alt="menu icon"
+								 style="width: 13px;" /></a></li>
+						<li class="page_name left">
+							<a href="javascript:void(0)" class="text-left ">
+								<p>{{'Wishlist' | translate}}</p>
+							</a>
+						</li>
+						
+					</ul>
+				</div>
+			</nav>
+
+		</div>
+		<!-- MOBILE-MENU-AREA END -->
+	</header>
+	<!-- END HEADER -->
+
+	<!--  [PULSES] Sub categories content -->
+	<div class="container-fluid mt-40" ng-init="mycart()">
+		<div class="row">
+			<div class="mycart_itemslist wishlist-items">
+				<!-- ** Product Lists ** -->
+
+				<div class="no-padding item_lists_main deleted_item" ng-repeat="x in whitelist_data" ng-if="whitelist_data" data-aos="fade-up" data-aos-delay="{{$index*50}}" data-aos-once="true">
+					<div class="prodcut_main_container">
+						<div class="products_wrapper">
+							<div class="items_img_div">
+								<a href="javascript:void(0)"><img class="img-responsive sub_cat_product_img" src="{{x.product_image}}"></a>
+							</div>
+							<div class="sub_product_desc" ng-click="product_view(x.MENU_ID)">
+								<!-- <input type="button" class="btn btn-default btn_discounts" name="" value="6% Off"> -->
+								<p class="sub_prcing"> 
+									<span id="sub_rrp">AED {{x.PRICE}}</span>
+								</p>
+								<a href="javascript:void(0)">
+									<p class="sub_produt_name">{{x.MENU_NAME}}</p>
+								</a>
+								<!--<p class="sub_product_qty">{{x.UNIT}} {{x.UNIT_TYPE}}</p>-->
+								
+							</div>
+							<div class="wislist_sub wishlist-container cart_remove" ng-click="removeWishlistItem(x.id)">
+								<i class="fa heart fa-times delete_item"></i>
+							</div>
+							
+							<div class="sub_add_product">
+									<div class="add_item_container sub_add_btn" id="firstt_{{x.id}}" data-attr="{{x.product_varient.id}}">
+				
+											<div class="add_item_button sub_add_btn" data-rowid="{{x.product_varient.cart_row_id}}" id="enableCart_{{x.product_varient.id}}" ng-show="x.product_varient.cart_row_id">
+													
+													<button class="less_item" data-menuid="{{x.product_varient.id}}" data-weightid="{{x.product_varient.id}}" id="minus_{{x.product_varient.id}}"
+													 ng-click="minusToCart($event)">
+															-
+													</button>
+													<input type="text" id="quantity_{{x.product_varient.id}}" value="{{x.product_varient.cart_quantity}}" disabled="">
+													<button class="add_item" data-menuid="{{x.product_varient.id}}" data-weightid="{{x.product_varient.id}}" data-weightid="{{x.product_varient.id}}"
+													 id="plus_{{x.product_varient.id}}" ng-click="plusToCart($event)">
+															+
+													</button>
+													
+											</div>
+				
+											<div class="add_cart_button sub_add_btn" id="addToCart_{{x.product_varient.id}}" ng-show="x.product_varient.cart_row_id == '' && x.product_varient.ALLOW_TO_ADD_IN_CART == 'yes'">
+													<button class="addcart_button" data-menuid="{{x.product_varient.id}}" data-user_id="{{x.user_id}}" data-weightid="{{x.product_varient.id}}" id="addCart_{{x.product_varient.id}}"
+													 ng-click="addToCart($event)"> {{'Add To Cart' | translate}}</button>
+											</div>
+				
+											<div class="add_cart_button div_in_stock sub_add_btn" id="outofstock_{{x.product_varient.id}}" ng-show="x.product_varient.cart_row_id == '' && x.product_varient.ALLOW_TO_ADD_IN_CART == 'no'">
+													<button class="out_of_stock" data-menuid="{{x.product_varient.id}}" data-user_id="{{x.user_id}}" data-weightid="{{x.product_varient.id}}" id="addCart_{{x.product_varient.id}}"
+													 > {{'Out_Of_Stocks' | translate}}</button>
+											</div>
+				
+									</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div  style="margin-top: 50px;position: fixed;" class="no_data_wrapper" ng-if="!whitelist_data">
+					<div class="">
+						<img src="img/no_data_found.png">
+						<h3 class="text-center">{{'No_Product_Found' | translate}}!!!</h3>
+					</div>
+				</div>
+				<!-- ** !. Product Lists ** -->				
+			</div>
+		</div>
+	</div>
+	<!--  !. [PULSES] Sub categories content -->
+
+<!--End of Pop up-->
+  <!--End of Pop up-->
+    <div>
+	<div class="bottom_navigation"  ng-init="loginlogout()">
+		
+		<div class="bottom_block" ng-init="selecthome()">
+			<a  ng-click="homego();" ng-if="color" style="background:{{background}}">
+			<img src="assets/img/google-icon/google-home.png">
+			<span style="display:block;"> {{'Home' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="category()"><img src="assets/img/google-icon/google-category.png">
+			<span style="display:block;">{{'Category' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="orderList()"><img src="assets/img/google-icon/google-list.png">
+			<span style="display:block;">{{'My_Orders' | translate}}</span>
+			</a>
+		</div>
+		
+			<div class="bottom_block">
+			<a ng-click="gotoAccount()"><img src="assets/img/google-icon/google-account.png">
+			<span style="display:block;"> {{'Account' | translate}}</span>
+			</a>
+		</div>
+	</div>
+	</div>
+
+<!--End of Pop up-->
+
+<!--End of Pop up-->
+
+	<script>
+
+
+		$(document).ready(function () { 
+			$(".cart_icon a:last-child").click(function () {
+				//alert();
+				$(".bottom_header").slideToggle();
+				//$("#banner_slider").toggleClass("search-container")
+			});
+		});
+	</script>
+</div>

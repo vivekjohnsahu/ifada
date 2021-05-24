@@ -1,0 +1,370 @@
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
+<div ng-controller="orderdetails" ng-init="ordersDetalisInit()">
+    <style>
+        .modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.rating {
+    color: #a9a9a9;
+    margin: 0;
+    padding: 0;
+}
+ul.rating {
+    display: inline-block;
+}
+.rating li {
+    list-style-type: none;
+    display: inline-block;
+    padding: 1px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+.rating .filled {
+    color: red;
+}
+.order_subcontainer__content a.invoice{
+    display: inline-block;
+    background: #ff8404;
+    color: #fff;
+    border-radius: 4px;
+    padding: 0 8px;
+    font-size: 12px;
+    min-width: 65px;
+    /* float: unset; */
+    margin-top: 8px;
+    float: right;
+    margin-bottom: 5px;
+}
+.order_subcontainer_heading a.invoice {
+    display: inline-block;
+    background: #ff8404;
+    color: #fff;
+    border-radius: 4px;
+    padding: 0 8px;
+    font-size: 12px;
+    min-width: 65px;
+    /* float: unset; */
+    margin-top: 8px;
+	float: right;
+}
+.prod_content_wrapper p span {
+    float: left;
+    text-align: left;
+}
+.prod_content_wrapper p {
+    text-align:right;
+}
+.mui-table>tbody>tr>td{
+	font-size: 15px;
+}
+.submit-btn {
+    margin: 15px 0 15px 0;
+}
+.dlvry_container {
+    margin-top: 0;
+}
+.order_sub_name {
+    font-size: 16px;
+    font-family: Calibri-Bold;
+    margin-bottom: 6px;
+}
+</style>
+
+    <header class="container-fluid nav-down">
+        <div class="row">
+            <nav class="navbar navbar-inverse">
+                <div class="container no-padding">
+                    <ul class="nav navbar-nav top_header text-center">
+                        <li class="menu_icon "><a href="javascript:void(0)"><img src="assets/img/icon/back.png"
+                                    ng-click="backtoorder()" alt="menu icon" style="width: 13px;" /></a></li>
+                        <li class="page_name left">
+                            <a href="javascript:void(0)" class="text-left ">
+                                <p>{{'Order_Summary' | translate}}</p>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </nav>
+
+        </div>
+        <!-- MOBILE-MENU-AREA END -->
+    </header>
+    <!-- END HEADER -->
+
+    <!--  START Banner SLIDER -->
+    <div class="container-fluid mt-45">
+        <div class="row">
+            <div class="order_container">
+                <div class="dlvry_container no-padding">
+                    <div class="order_heading col-xs-12">
+                        <p>{{'Order_ID' | translate}} <span>{{detail.id}}</span></p>
+                    </div>
+                    <div class="order_subcontainer" ng-repeat="y in detail_distribution">
+                        <div class="order_subcontainer_heading col-xs-12 pb-5">
+                            <p style="width:100%;">{{'Order_ID' | translate}} &nbsp;<span>{{detail.id}}-{{y.id}} </span>
+								<a class="invoice" ng-if="y.status == '5'" ng-click="invoice(y.manufacturer_id,detail.id)"><i class="fa fa-download" aria-hidden="true"></i> {{'Invoice' | translate}}</a>
+							</p>
+							
+							<p class="status_btn" style="background: #f8cb00!important;" ng-if="payment_status_new == '2' && payment_type_new == '2' && y.cancel_reason==''">
+							   {{'Payment_Failed' | translate }}							   
+							   </p>
+							<p class="status_btn" style="background: #eda1a8!important;" ng-if="payment_status_new == '3' && payment_type_new == '2' && y.cancel_reason=='' ">
+							   {{'Payment_Cancelled' | translate }}							   
+							</p>   
+							
+                            <p class="status_btn" ng-if="y.status == '1' && payment_status_new != '2' ">{{'Pending' | translate}}</p>
+                            <p class="status_btn" style="background: #ff7f8d!important;" ng-if="y.status == '2' ">{{'InProcess' | translate }}</p>
+                            <p class="status_btn" style="background: #4a0d4a!important" ng-if="y.status == '3'">{{'Delivery_Person_Assigned' | translate}}</p>
+                            <p class="status_btn" style="background: #66af52!important;" ng-if="y.status == '4'">{{'Out_for_delivery' | translate}}</p>
+                            <p class="status_btn" style="background: #39a91c!important;" ng-if="y.status == '5'">{{'Delivered' | translate}}</p>
+                            <p class="status_btn" style="background: #eda1a8;" ng-if="y.status == '6' && y.cancel_reason!=''  ">{{'Cancelled' | translate}}</p>
+                            <p class="status_btn" style="background: #dc081f!important;" ng-if="y.status == '7'">{{'Rejected' | translate}}</p>
+                            <p class="status_btn" style="background: #f5ae48!important;" ng-if="y.status == '8'">{{'Rescheduled' | translate}}</p>
+                            <p class="status_btn" style="background: #df5739!important;" ng-if="y.status == '9'">{{'No_contacted' | translate}}</p>
+							
+							
+                             <a href="" class="track_btn" ng-click="trackOrder(y.id,detail.id)">{{'Track_Order' |
+                                translate}}</a>
+                        </div>
+                        <div class="order_subcontainer_detail col-xs-12">
+                            <p><span>{{'Order_on' | translate}}: {{y.updated_date.split(' ')[0] | date : 'dd-MM-yyyy'}}</span><span>{{'Order_Amt'
+                                    | translate}}: {{currency}} {{y.final_amount}}</span></p>
+                        </div>
+                        <div class="order_subcontainer__content col-xs-12" ng-repeat="z in y.items">
+						
+						<!--<p style="width:100%;"><a class="invoice" ng-if="y.status == '5'" ng-click="invoice(z.manufacturer_id,detail.id)"><i class="fa fa-download" aria-hidden="true"></i> {{'Invoice' | translate}}</a></p>-->
+						
+						
+						
+                            <div class="prod_row_wrapper">
+                                <div class="prod_img_wrapper">
+                                    <img src="{{z.product_image}}" class="img-responsive" />
+                                </div>
+                                <div class="prod_content_wrapper">
+                                    <p class="order_sub_name">{{z.MENU_NAME}}</p>
+                                    <p><span>{{'Units' | translate}} </span>{{z.UNIT_VALUE}}{{z.FS_UNIT_NAME}}</p>
+                                    <p><span>{{'Price' | translate}} </span>{{currency}} {{z.unit_price}}</p>
+                                    <p><span>{{'VAT' | translate}} </span>{{currency}} {{z.tax_amount}}</p>
+                                    <p><span>{{'Qty' | translate}} </span>{{z.quantity}}</p>
+                                </div>
+                                <div class="prod_img_wrapper review_icon" ng-if="y.status == '5'" ng-click = "values(z.MENU_ID,z.menu_varient_id,detail.id,z.manufacturer_distribution_id)">
+                                    <img src="assets/img/review_icon.png" class="img-responsive" data-toggle="modal"
+                                        data-target="#item_review" />
+                                </div>
+                            </div>
+                            <!-- <div class="prod_row_wrapper">
+                                    <div class="prod_img_wrapper">
+                                        <img src="assets/img/product/order_img1.png" class="img-responsive" />						
+                                    </div>
+                                    <div class="prod_content_wrapper">
+                                        <p class="order_sub_name">Dry Fruits</p>
+                                        <p><span>Unit </span>500g</p>
+                                        <p><span>Price </span>AED 140</p>
+                                    </div>
+                                </div> -->
+
+<!-- pop up for review -->
+
+
+                                <div class="modal fade" id="item_review" role="dialog">
+                                        <div class="modal-dialog">
+                                
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <div class="customer-image" ng-if="profile_image_found != ''">
+                                                        <img src="{{profile_image}}">
+                                                    </div>
+                                                    <div class="customer-image" ng-if="profile_image_found == ''">
+                                                            <img src="assets\img\icon\user_icon.png">
+                                                        </div>
+                                                    <h4 class="modal-title">{{'Review_by' | translate }} {{fullName}}</h4>
+                                                </div>
+                                                <form name="review" nonvalidate>
+                                                <div class="customer-rating-star">
+                                                    <!-- <span class="spr-starratings spr-review-header-starratings">
+                                                <i class="fa fa-star fa-fw"></i>
+                                                <i class="fa fa-star fa-fw"></i>
+                                                <i class="fa fa-star fa-fw"></i>
+                                                <i class="fa fa-star-o fa-fw"></i>
+                                                <i class="fa fa-star-o fa-fw"></i>                              
+                                            </span> -->
+                                                    <span ng-repeat="rating in ratings">
+                                                        <!-- {{rating.max}} -->
+                                                        <div class="review_main_div" star-rating rating-value="rating.current" max="rating.max" on-rating-selected="getSelectedRating(rating)"></div>
+                                                    </span>
+                                                    <span class="spr-starratings spr-review-header-starratings">
+                                                        {{currentfeedback}}
+                                                    </span>
+                                                </div>
+                                
+                                                <div class="comment_box_review">
+                                                    <!-- <textarea rows="4" name="comments" placeholder="Give your valuable comment..."></textarea> -->
+                                
+                                                    <div class="form_container">
+                                                        <form class="mui-form">
+                                                            <div class="mui-textfield contactmessage col-xs-12">
+                                                                <textarea rows="2" placeholder="" ng-model="form.comment" name="comment"></textarea>
+                                                                <label>{{'Comments' | translate}}</label>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                
+                                                <div class="review-subbmit-bttn">
+                                                        <button type="button" value="submit" class="review-cancel-button" data-dismiss="modal" >{{'Cancel' | translate }}</button>
+                                                    <button type="button" value="submit" class="review-subbmit-button" data-dismiss="modal" ng-click="revieworder('review')">{{'Submit' | translate }}</button>
+                                                </div>
+                                            </form>
+                                            </div>
+                                
+                                        </div>
+                                    </div>
+
+<!-- end of popup for review -->
+
+
+                        </div>
+                      
+						
+						  <div ng-if="y.status != '6' && y.status != '5' && y.status != '7' && payment_status_new != '2'  && payment_status_new != '3'" class="submit-btn col-sm-6 col-xs-12 text-center">
+                            <a class="cancel_order" href="javascript:void(0)" ng-click="deleteOrder(y.id,detail.id)">{{'Cancel'
+                                | translate}}</a>
+                         </div>
+                        <!-- <div ng-if="y.status == '6'" class="submit-btn col-sm-6 col-xs-12 text-center">
+                            <a href="javascript:void(0)" style="background-color: #eda1a8">{{'Order_Cancelled' |
+                                translate}} </a>
+                        </div> -->
+						<div ng-if="y.status >= '2' && y.status!= '6' &&  y.status!= '5'" class="col-sm-12 col-xs-12">
+						   <div ng-if="y.cancellation_policy_check == 'yes'"><p style="color:#51a900;padding: 5px 0px;">* You can cancel this order up to {{y.cancellation_policy}} hours from the confirmation time.</p></div>
+				<div ng-if="y.cancellation_policy_check == 'no'"><p style="color:red;padding: 5px 0px;">*Note : {{'Your_cancellation_policy_is_over' | translate}}</p></div>
+				       </div>
+					   
+					   <div ng-if="y.cancel_reason!=''" class="col-sm-12 col-xs-12">
+						<p  style="color:black;padding: 5px 0px;"> {{'Cancel_Reason' | translate }} :{{y.cancel_reason}}</p>
+				       </div>
+						
+                    </div>
+
+                </div>
+                <div class="dlvry_time_container mt-15">
+                    <div class="dlvry_address col-xs-12">
+                        <div class="dlvry_address_heading">
+
+
+                            <table class="mui-table">
+                                <tbody>
+                                    <tr>
+                                        <td width="100px;">{{'Payment' | translate}}</td>
+                                        <td width="20px;">:</td>
+                                        <td class="text-right" ng-if="detail.payment_type == '1'">{{'COD' | translate}}<span>
+                                                ({{currency}}-{{codamount | number : 2}})</span></td>
+                                        <td class="text-right" ng-if="detail.payment_type == '2'">{{'Online' | translate}}<span>
+                                                ({{currency}}-{{codamount | number : 2}})</span></td>
+                                        <td class="text-right" ng-if="detail.payment_type == ''">{{'Wallet' | translate}}</td>
+                                    </tr>
+                                    <tr ng-if="detail.wallet_used_amount !='0.00'">
+                                        <td>{{'Wallet_used_amount' | translate}}</td>
+                                        <td width="20px;">:</td>
+                                        <td class="text-right">{{currency}}-{{detail.wallet_used_amount | number : 2}}</td>
+                                    </tr>
+                                    <tr ng-if="detail.coupon_code_amount != '0.00'">
+                                        <td>{{'Coupon_Discount' | translate}}</td>
+                                        <td width="20px;">:</td>
+                                        <td class="text-right">{{currency}}-{{detail.coupon_code_amount}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'VAT' | translate}}</td>
+                                        <td width="20px;">:</td>
+                                        <td class="text-right">{{currency}}-{{detail.tax_amount}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'Ordered_On' | translate}}</td>
+                                        <td width="20px;">:</td>
+                                        <td class="text-right">{{detail_date.split(' ')[0] | date : 'dd-MM-yyyy'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'Deliver_To' | translate}}</td>
+                                        <td width="20px;">:</td>
+                                        <td class="text-right">{{delivery_address.address}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'Mobile_Number' | translate}}</td>
+                                        <td width="20px;">:</td>
+                                        <td class="text-right">{{delivery_address.mobile_number}}</td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="view_prod">
+                    <p class="col-xs-6"><a href="javascript:void(0)">{{'Total_Amount' | translate}}</a></p>
+                    <p class="col-xs-6 text-right">{{currency}} {{detail.final_amount | number : 2}}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--  END Banner SLIDER -->
+
+<!--End of Pop up-->
+<!--End of Pop up-->
+	<!--End of Pop up-->
+    <div>
+	<div class="bottom_navigation"  ng-init="loginlogout()">
+		
+		<div class="bottom_block" ng-init="selecthome()">
+			<a  ng-click="homego();" ng-if="color" style="background:{{background}}">
+			<img src="assets/img/google-icon/google-home.png">
+			<span style="display:block;"> {{'Home' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="category()"><img src="assets/img/google-icon/google-category.png">
+			<span style="display:block;">{{'Category' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="orderList()"><img src="assets/img/google-icon/google-list.png">
+			<span style="display:block;">{{'My_Orders' | translate}}</span>
+			</a>
+		</div>
+		
+			<div class="bottom_block">
+			<a ng-click="gotoAccount()"><img src="assets/img/google-icon/google-account.png">
+			<span style="display:block;"> {{'Account' | translate}}</span>
+			</a>
+		</div>
+	</div>
+	</div>
+
+	<!--End of Pop up-->
+<!--End of Pop up-->
+
+
+    <!-- Modal -->
+    
+</div>

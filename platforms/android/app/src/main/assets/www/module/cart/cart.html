@@ -1,0 +1,216 @@
+<div ng-controller="cart" ng-init="mycart()">
+
+	<style>
+	.coupon_input input{
+		margin:0px;
+	}
+	.nav > li.page_name.left {
+    width: calc(100% - 87px);
+    }
+	</style>
+	<header class="container-fluid nav-down" ng-init="usercartvalue()"> 
+		<div class="row">
+			<nav class="navbar navbar-inverse">
+				<div class="container no-padding">
+					<ul class="nav navbar-nav top_header">
+						<li class="menu_icon " ng-if="!fromcookie"><a href="javascript:void(0)"><img ng-click="back()" src="assets/img/icon/back.png" id="asdf"
+								 alt="menu icon" style="width: 13px;" /></a></li>
+						<li class="menu_icon " ng-if="fromcookie"><a href="javascript:void(0)"><img ng-click="homePage()" src="assets/img/icon/back.png" id="asdf"
+								 alt="menu icon" style="width: 13px;" /></a></li>
+						<li class="page_name left">
+							<a href="javascript:void(0)" class="text-left ">
+								<p>{{'My_Cart' | translate}} <span ng-if="cart_count"> ({{cart_count}}) </span></p> 
+							</a>
+						</li>
+						<li style="float: right"><button ng-click="empty_cart()" style="float: right; margin-top: 5px;border: none;
+							background: none;"><img
+								 height="25px" width="25px" src="assets/img/google-icon/google-cart-remove.png"></button></li>
+						<!-- <li class="cart_icon">
+							<a href="javascript:void(0)"><img src="assets/img/icon/cart_icon.png" alt="cart icon" />
+								<span class="badge">{{cart_count}}</span>
+							</a>
+							 <a href="javascript:void(0)"><img src="assets/img/icon/search_icon.png" alt="search icon" /></a> 
+						</li> -->
+					</ul>
+				<!-- 	<ul class="nav navbar-nav bottom_header">
+						<li class="menu_search_container"><a href="javascript:void(0)">
+								<img src="assets/img/header/search_icon.png" alt="cart icon" />-->
+					<!-- 			<input type="text" class="menu_search" placeholder="Search products brands and more" />
+							</a></li>
+					</ul>  -->
+				</div>
+			</nav>
+
+		</div>
+		<!-- MOBILE-MENU-AREA END -->
+	</header>
+	<!-- END HEADER -->
+
+	<!--  [PULSES] Sub categories content -->
+	<div class="container-fluid mt-50" ng-init="usercartvalue()" style="padding:0;">
+		<div class="">
+			<div class=" mycart_itemslist" ng-if="cart_data" >
+
+
+				<!-- ** Product Lists ** -->
+
+				<div class="no-padding item_lists_main deleted_item" ng-repeat="x in cart_data" data-aos="fade-up" data-aos-delay="{{$index*50}}">
+					<div class="prodcut_main_container">
+						<div class="products_wrapper">
+							<div class="items_img_div" ng-if="x.image != ''" ng-click="product_view(x.menu_id)">
+								<a href="javascript:void(0)"><img class="img-responsive sub_cat_product_img" src="{{cart_values.image_path}}{{x.image}}"></a>
+							</div>
+							<div class="items_img_div" ng-if="x.image == ''" ng-click="product_view(x.menu_id)">
+								<a href="javascript:void(0)"><img class="img-responsive sub_cat_product_img" src="assets/img/product/default.png"></a>
+							</div>
+							<div class="sub_product_desc">
+								<input type="button" class="btn btn-default btn_discounts" name="" value="6% Off">
+								<a href="javascript:void(0)" ng-click="product_view(x.menu_id)" style="width: calc(100% - 25px);">
+									<p class="sub_produt_name">{{x.name}}</p>
+								</a>
+								
+								<div class="sub_add_product">
+									<div class="add_item_container sub_add_btn" id="firstt_{{x.menu_id}}" data-attr="{{x.id}}">
+										<div class="add_item_button sub_add_btn" data-rowid="{{x.rowid}}" id="enableCart_{{x.id}}" ng-show="x.rowid">
+											<button class="less_item" data-menuid="{{menu_id}}" data-weightid="{{x.id}}" id="minus_{{x.id}}"
+											 ng-click="minusToCart($event)">
+												-
+											</button>
+											
+											<input type="text" id="quantity_{{x.id}}" value="{{x.qty}}" disabled="">
+											<button class="add_item" data-menuid="{{menu_id}}" data-weightid="{{x.id}}" data-weightid="{{x.id}}"
+											 id="plus_{{x.id}}" ng-click="plusToCart($event)">
+												+
+											</button>
+										</div>
+									</div>
+								</div>
+								
+								<div class="cart-price">
+									<p class="sub_product_qty" style="text-align:right;"><span id="sub_rrp" class="cart_sub_rrp">{{currency}} {{x.price}}</span></p>
+									<!--<p>{{x.unit_value}} {{x.unit_name}}</p>-->
+									
+								</div>
+								<p class="sub_prcing vat-text">
+									<!-- <strike>AED 190</strike> -->
+									<span ng-if="x.vat_on_this_item" class="vat_inc">{{'VAT' | translate}}({{x.tax_percentage}}%) - {{currency}} {{x.vat_on_this_item | number : 2}}</span>
+								</p>
+							</div>
+
+							<!--<div class="wislist_sub wishlist-container cart_remove" ng-click="deleteproduct(x.rowid)">
+								<img src="assets/img/google-icon/google-remove-item.png">
+							</div>-->
+
+							
+						</div>
+					</div>
+				</div>
+
+
+				<!-- ** !. Product Lists ** -->
+			</div>
+		</div>
+		<div class="promo-code"  ng-init="initpomo()" ng-if="cart_data">
+			<form method="post" name="loginform" novalidate >
+				<div class="form_container">
+				 
+					<div class="mui-textfield">
+						<!--<input type="text" id="code" name=""  required>
+						<label for="code">Promo Code</label>-->
+						  <input type="text" name="promocode" id="inputpromo" ng-model="$root.promocode" class="couponcode" required>
+						<label for="code" ng-show="cart_values.is_coupon_applied == 0" id="enter_promo">{{'Enter_Promocode' | translate}}</label>
+						<label ng-show="cart_values.is_coupon_applied != 0" id="Applied_promo">{{'Promocode_Applied' | translate}}</label>
+					</div>
+				  </div>
+				<div class="submit-btn">
+					<!--<a href="javascript:void(0)">Apply</a>-->
+					 
+						<input ng-show="cart_values.is_coupon_applied == 0" type="button" class="btn coupon_apply" name="" id="apply" value="{{'Apply' | translate }}" ng-click="apply_promo('apply')">
+						<input ng-show="cart_values.is_coupon_applied != 0" type="button" id="applied" class="btn coupon_apply applied " ng-click="apply_promo('remove')" value="{{'Remove' | translate}}">
+				</div>
+			</form>
+		</div>
+		<div class="cart_footer" ng-show="cart_data">
+			<p class="pay_d"> {{'Payment_Details' | translate}}</p>
+			<!--<div class="coupon_container" ng-hide="cart_values.manufacturer_count > 1" ng-init="initpomo()">
+				<form method="post" name="loginform" novalidate>
+					<div class="counpontext">
+						<h5 ng-show="cart_values.is_coupon_applied == 0" id="enter_promo"><i class="fa fa-tags" aria-hidden="true"></i>&nbsp;{{'Enter_Promocode' | translate}}</h5>
+						<h5 ng-show="cart_values.is_coupon_applied != 0" id="Applied_promo"><i class="fa fa-tags" aria-hidden="true"></i>&nbsp;{{'Promocode_Applied' | translate}}</h5>
+					</div>
+					
+					<div class="coupon_input text-right">
+						<input type="text" name="promocode" id="inputpromo" ng-model="$root.promocode" class="couponcode" required>
+						<input ng-show="cart_values.is_coupon_applied == 0" type="button" class="btn coupon_apply" name="" id="apply" value="{{'Apply' | translate }}" ng-click="apply_promo('apply')">
+						<input ng-show="cart_values.is_coupon_applied != 0" type="button" id="applied" class="btn coupon_apply applied " ng-click="apply_promo('remove')" value="{{'Remove' | translate}}">
+					</div>
+				</form>
+			</div>-->
+
+			<div class="after_coupon" ng-if="coupon_discount">
+				<div class="after_discount" ng-if="!subtotalafterdiscount">{{'Sub_Total' | translate}} <span>{{currency}} {{subtotalbeforediscount | number : 2}}</span></div>
+				<div class="after_discount" ng-if="subtotalwithoutdiscount != ''">{{'Sub_Total' | translate}} <span>{{currency}} {{subtotalwithoutdiscount | number : 2}}</span></div>
+				<div class="after_discount" ng-if="coupon_discount">{{'Coupon_Discount' | translate}} <span>{{currency}} {{coupon_discount | number : 2}}</span></div>
+				<div class="after_discount" ng-if="subtotalafterdiscount">{{'Sub_Total_after_discount' | translate}} <span>{{currency}} {{subtotalafterdiscount | number : 2}}</span></div>
+				<div class="after_cart">{{'VAT' | translate}}<span>{{currency}} {{tax_amount | number : 2}}</span></div>
+			</div>
+			<div class="after_coupon" ng-if="!coupon_discount">
+				<div class="after_discount" ng-if="!subtotalafterdiscount">{{'Sub_Total' | translate}} <span>{{currency}} {{subtotalbeforediscount | number : 2}}</span></div>
+				<div class="after_cart">{{'VAT' | translate}}<span>{{currency}} {{tax_amount | number : 2}}</span></div>
+			</div>
+			<!-- {{cart_data}} -->
+			
+
+		</div>
+		
+		<div class="secure-payments" ng-if="cart_data">
+			<img src="assets/img/google-icon/verify.png">
+			<p>Safe & Secure Payments</p>
+		</div>
+		<div class="fixed_checkout" ng-show="cart_data">
+			<a href="javascript:void(0)" >
+				<div class="checkout_container" ng-if="coupon_discount">
+					<p class=""><span> {{'Total' | translate}}</span>{{currency}} {{finalTotal | number : 2}} <a class="detailscroll"> {{'Details' | translate}}</a></p>
+					<a ng-click="address_delivery()">{{'Checkout' | translate}}</a>
+				</div>
+				<div class="checkout_container" ng-if="!coupon_discount">
+					<p class=""><span>{{'Total' | translate}}</span>{{currency}} {{finalTotal | number : 2}} <a class="detailscroll">{{'Details' | translate}}</a></p>
+					<a ng-click="address_delivery()">{{'Checkout' | translate}}</a>
+				</div>
+			</a>
+		</div>
+		<div class="empty_cart_main" id="view_cart mt-50" ng-if="!cart_data">
+			<div class="empty_cart">
+				<img src="img/emptycart_icon.png" alt="" />
+				<h3>{{'Cart_is_Empty' | translate}}</h3>
+				<p>{{'you_have_no_items_in_your_shopping_cart' | translate}}</p>
+				<div class="shop_now text-center mt-20"><a href="javascript:void(0)" ng-click="homePage()">{{'Shop_Now' | translate}}</a></div>
+			</div>
+		</div>
+	</div>
+	
+	
+
+	<!--  !. [PULSES] Sub categories content -->
+
+
+
+	<script>
+
+
+		$(document).ready(function () {
+			$(".cart_icon a:last-child").click(function () {
+				//alert();
+				$(".bottom_header").slideToggle();
+				//$("#banner_slider").toggleClass("search-container")
+			});
+		});
+		$(document).ready(function(){
+			$(".detailscroll").click(function(){
+				$("body").animate({ scrollTop: $(document).height() }, 1000);
+			})
+		})
+		
+	</script>
+
+</div>

@@ -1,0 +1,141 @@
+<style type="text/css">
+    .products_wrapper.ticket_wrapper {
+        display: block;
+        padding: 0 5px;
+    }
+</style>
+
+<div ng-controller="myorders" ng-init="ordersInit()">
+
+    <header class="container-fluid nav-down">
+        <div class="row">
+            <nav class="navbar navbar-inverse">
+                <div class="container no-padding" >
+                    <ul class="nav navbar-nav top_header">
+                        <li class="menu_icon "><a href="javascript:void(0)"><img ng-click="backtohome()" src="assets/img/icon/back.png" alt="menu icon"
+                                    style="width: 13px;" /></a></li>
+                        <li class="page_name left">
+                            <a href="javascript:void(0)" class="text-left ">
+                                <p>{{'My_Orders' | translate }}</p>
+                            </a>
+                        </li>
+                        <li class="cart_icon">
+                           <!--  <a href="javascript:void(0)"><img src="assets/img/icon/cart_icon.png" alt="cart icon" />
+                                <span class="badge">14</span>
+                            </a> -->
+                           <!--  <a href="javascript:void(0)"><img src="assets/img/icon/search_icon.png" alt="search icon" /></a> -->
+                        </li>
+                    </ul>
+                    <!-- <ul class="nav navbar-nav bottom_header">
+                        <li class="menu_search_container"><a href="javascript:void(0)">
+                                
+                                <input type="text" class="menu_search" placeholder="Search products brands and more" />
+                            </a></li>
+                    </ul> -->
+                </div>
+                
+            </nav>
+
+        </div>
+        <!-- MOBILE-MENU-AREA END -->
+    </header>
+    <!-- END HEADER -->
+
+    <!--  [PULSES] Sub categories content -->
+    <div class="container-fluid mt-45">
+        <div class="row">
+            <div class="">
+
+
+                <!-- ** My Order List  ** -->
+
+                <div class="no-padding item_lists_main" style="width:100%" ng-if="order_list != ''"  ng-repeat="x in order_list.result" ng-click="orderDetails(x.id)">
+                    <a href="javascript:void(0)">
+                        <div class="prodcut_main_container">
+                            <div class="products_wrapper ticket_wrapper">
+
+                                <div class="row padding_ticket">
+                                    <div class="col-md-9 col-sm-9 col-xs-9 no-padding">
+                                        <h5 class="ordrlist_head" style="font-size: 16px;"><img class="myorderlist_img" src="assets/img/my_order_list.png">{{'Order_ID' | translate}} {{x.id}}</h5>
+                                        <div>
+                                            <h5>{{'Total' | translate}} : {{currency}} {{x.final_amount}}</h5>
+                                            <p>{{x.created_date.split(' ')[0] | date : 'dd-MM-yyyy'}}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-3 col-xs-3 no-padding" style="text-align: right;">
+                                        <input type="button" class="btn btn-default btn_discounts ticket_process_btns inprocess_order"
+                                            name="" value="In Process">
+                                        <i class="fa fa-angle-right nav_to_orders" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div  class="no_data_wrapper" ng-if="order_list == ''">
+                    <div class="">
+                        <img src="img/no_data_found.png">
+                        <h3 class="text-center">{{'No_Order_Found' | translate}}!!!</h3>
+                    </div>
+                <!-- ** !. My Order List ** -->
+            </div>
+        </div>
+    </div>
+    <!--  !. [PULSES] Sub categories content -->
+
+
+    <script>
+
+
+        $(document).ready(function () {
+            $(".cart_icon a:last-child").click(function () {
+                //alert();
+                $(".bottom_header").slideToggle();
+                //$("#banner_slider").toggleClass("search-container")
+            });
+        });
+    </script>
+
+</div>
+<!--End of Pop up-->
+<!--End of Pop up-->
+	<!--End of Pop up-->
+    <div>
+	<div class="bottom_navigation"  ng-init="loginlogout()">
+		
+		<div class="bottom_block" ng-init="selecthome()">
+			<a  ng-click="homego();" ng-if="color" style="background:{{background}}">
+			<img src="assets/img/google-icon/google-home.png">
+			<span style="display:block;"> {{'Home' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="category()"><img src="assets/img/google-icon/google-category.png">
+			<span style="display:block;">{{'Category' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="orderList()" style="background: rgba(81, 169, 0, 0.10196078431372549)"><img src="assets/img/google-icon/google-list.png">
+			<span style="display:block;">{{'My_Orders' | translate}}</span>
+			</a>
+		</div>
+		
+			<div class="bottom_block">
+			<a ng-click="gotoAccount()"><img src="assets/img/google-icon/google-account.png">
+			<span style="display:block;"> {{'Account' | translate}}</span>
+			</a>
+		</div>
+	</div>
+	</div>
+
+	<!--End of Pop up-->
+<!--End of Pop up-->
+
+<!--End of Pop up-->
+</div>

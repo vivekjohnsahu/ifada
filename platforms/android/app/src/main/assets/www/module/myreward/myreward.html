@@ -1,0 +1,138 @@
+<div ng-controller="rewards" ng-init="myrewards()">
+<style>
+	.table>thead>tr>td, .table>tbody>tr>th, .redeem_table>tbody>tr>td{
+		font-size:15px;
+	}
+</style>
+<header class="container-fluid nav-down">
+        <div class="row">
+            <nav class="navbar navbar-inverse">
+              <div class="container no-padding">
+                <ul class="nav navbar-nav top_header">
+                  
+                    <li class="menu_icon back_icon"><a href="javascript:void(0)"  ><img style="width:13px;" ng-click="back()" src="assets/img/icon/back.png" alt="menu icon" /></a></li>
+                  <li class="logo_name"><a class="text-left back">{{'My_Rewards' | translate }}</a></li>
+                  
+                </ul>
+                
+              </div>
+            </nav>
+        
+        </div>
+        <!-- MOBILE-MENU-AREA END -->
+    </header>
+    <!-- END HEADER -->
+    <div class="">	
+        <div class="mt-70"> 
+             <div class="reward_code text-center">
+                 <p>{{'Referral_Code' | translate}}: 
+                     <span ng-if="redeemdata.referal_code != ''">{{redeemdata.referal_code}}</span>
+                     <span ng-if="redeemdata.referal_code == ''">---/---</span>
+                    </p>
+             </div>
+        </div>
+        
+        <div class="redeem_div">
+            <div class="redeem_main">
+                <h3 class="redeem_text">{{'Redeem_Your_Points' | translate}}</h3>
+                
+                <div class="redeem_point">
+                    <h3 style="color:#006d07; margin-top:10px;"><span ng-if="redeemdata.loyalty_point_data != ''">{{redeemdata.loyalty_point_data}}</span> 
+                        <span ng-if="redeemdata.loyalty_point_data == ''">0</span> {{'Points' | translate}}</h3>
+                </div>
+                <p>{{'Note' | translate}}: {{'To_redeem_minimum_point_should_be' | translate }} {{redeemdata.redeem_limit}}</p>
+            </div>
+        </div>
+        
+    
+        <div class="sign-up-button text-center">
+            <button ng-click="reddempoints()" class="" style="width:50%">
+                {{'Reedem_Points' | translate}}
+            </button>
+        </div>
+        <!-- <div class="sign-up-button text-center redeem_btn" ng-if=" redeemdata.redeem_limit > redeemdata.loyalty_point_data">
+                <button ng-click="lesspoints()" class="" style="width:50%; background-color:#ca8b8b ">
+                    {{'Not_Enough_Points' | translate}}
+                </button>
+            </div> -->
+        <div class="point_hist">
+            <p class="pt-15">{{'Your_Points_History' | translate}}</p>
+        </div>
+        <div class="redeem_table_div">
+            <table class="table redeem_table">
+                <thead class="">
+                    <tr>
+                        <td scope="col">{{'Date' | translate}}</td>
+                        <td scope="col">{{'Description' | translate}}</td>
+                        <td scope="col">{{'Amount' | translate}}</td>
+                        <td scope="col">{{'CR_DR' | translate }}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in redeemhistory">
+                      <th style="text-align:center;font-weight:400;">{{x.updated_date.split(' ')[0] | date:'dd-MM-yyyy'}}</th>
+                      <td ng-if="x.order_id == '0'">{{x.loyalty_by}}</td>
+                      <td ng-if="x.order_id != '0'">{{x.loyalty_by}}<br> {{'Order_ID' | translate }}{{x.order_id}}</td>
+                      <td>{{currency}} {{x.loyalty_point}}</td>
+                      <td>{{x.type}}</td>
+                    </tr>
+                    <!-- <tr>
+                      <th style="text-align:center;font-weight:400;">12/12/2018</th>
+                      <td>paytm</td>
+                      <td>200</td>
+                      <td>larry</td>
+                    </tr>
+                    <tr>
+                      <th style="text-align:center;font-weight:400;">12/12/2018</th>
+                      <td>paytm</td>
+                      <td>200</td>
+                      <td>larry</td>
+                    </tr> -->
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+	
+	<!--End of Pop up-->
+ <div>
+	<div class="bottom_navigation"  ng-init="loginlogout()">
+		
+		<div class="bottom_block" ng-init="selecthome()">
+			<a  ng-click="homego();" ng-if="color" style="background:{{background}}">
+			<img src="assets/img/google-icon/google-home.png">
+			<span style="display:block;"> {{'Home' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="category()" style="background: rgba(81, 169, 0, 0.10196078431372549)"><img src="assets/img/google-icon/google-category.png">
+			<span style="display:block;">{{'Category' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="orderList()"><img src="assets/img/google-icon/google-list.png">
+			<span style="display:block;">{{'My_Orders' | translate}}</span>
+			</a>
+		</div>
+		
+			<div class="bottom_block">
+			<a ng-click="gotoAccount()"><img src="assets/img/google-icon/google-account.png">
+			<span style="display:block;"> {{'Account' | translate}}</span>
+			</a>
+		</div>
+	</div>
+	</div>
+
+<!--End of Pop up-->
+</div>
+    <script>
+    
+        $('.digit1 input').keyup(function(){
+            if($(this).val().length==$(this).attr("maxlength")){
+                $(this).next().focus();
+            }
+        });
+    
+    </script>	

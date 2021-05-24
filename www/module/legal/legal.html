@@ -1,0 +1,90 @@
+<style>
+	.nav > li.page_name {
+		position: absolute;
+		height: 45px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		left: 0;
+		top: 0;
+		padding-bottom: 10px;
+	}
+	.navbar-inverse .navbar-nav>li>a {
+		display: flex;
+		align-items: center;
+	}
+	.navbar-inverse .navbar-nav>li>a>p {
+		padding: 0 0px 0 10px;
+		text-transform: capitalize;
+	}
+</style>
+
+<div ng-controller="legal">  
+	<div style='display:none;' class="homes"></div>
+	<!-- END HEADER -->
+	<header class="container-fluid nav-down">
+		<div class="row">
+			<nav class="navbar navbar-inverse">
+				<div class="container no-padding">
+					
+					
+					<ul class="nav navbar-nav top_header ">
+							<li class="menu_icon back_icon"><a href="javascript:void(0)"  ><img style="width:13px;" ng-click="back()" src="assets/img/icon/back.png" alt="menu icon" /></a></li>
+							<li class="logo_name"><a class="text-center back">{{'Legal' | translate}}</a></li>
+							
+						</ul>
+					
+
+				</div>
+			</nav>
+
+		</div>
+		<!-- MOBILE-MENU-AREA END -->
+	</header>
+	<!-- END HEADER -->
+	<div class="main_search_page mt-45">
+		<div class="search-default">
+			<ul>
+				<li ng-click="terms_n_conditions()">{{'Terms_And_Conditions' | translate }} <span><img src="assets/img/google-icon/next.png"></span></li>
+				<li ng-click="privacy_policy()"> {{'Privacy_Policy' | translate }}<span><img src="assets/img/google-icon/next.png"></span></li>
+			</ul>
+		</div>
+		
+	</div>
+	
+	
+
+<!--End of Pop up-->
+<div>
+	<div class="bottom_navigation"  ng-init="loginlogout()">
+		
+		<div class="bottom_block" ng-init="selecthome()">
+			<a  ng-click="homego();" >
+			<img src="assets/img/google-icon/google-home.png">
+			<span style="display:block;"> {{'Home' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="category()"><img src="assets/img/google-icon/google-category.png">
+			<span style="display:block;">{{'Category' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="orderList()"><img src="assets/img/google-icon/google-list.png">
+			<span style="display:block;">{{'My_Orders' | translate}}</span>
+			</a>
+		</div>
+		
+		<div class="bottom_block">
+			<a ng-click="gotoAccount()"><img src="assets/img/google-icon/google-account.png">
+			<span style="display:block;"> {{'Account' | translate}}</span>
+			</a>
+		</div>
+	</div>
+	</div>
+
+	<!--End of Pop up-->
+</div>
